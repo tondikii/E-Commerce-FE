@@ -1,11 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
 import apiInstance from "../../configs/api";
 import { useState, useEffect } from "react";
-// import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { userLogin } from "../../store/reducers/root";
 import { ExclamationCircleIcon } from "@heroicons/react/outline";
 import Swal from "sweetalert2";
 
 export default function RegisterPage() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [registerForm, setRegisterForm] = useState({
     fullName: "",
@@ -46,7 +48,7 @@ export default function RegisterPage() {
           email: registerForm.email,
           password: registerForm.password,
         });
-        localStorage.access_token = login.access_token;
+        await dispatch(userLogin(login));
         navigate("/");
         Swal.fire({
           title: "Register Successful",

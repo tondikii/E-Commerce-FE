@@ -1,16 +1,19 @@
-import {
-  SET_LOGIN,
-  // SET_LOADING,
-  // SET_ERROR,
-  // SET_PRODUCTS,
-} from "../actionTypes";
+import { USER_LOGIN, USER_LOGOUT } from "../actionTypes";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+// import apiInstance from "../../configs/api";
 
 export const userLogin = createAsyncThunk(
-  SET_LOGIN,
+  USER_LOGIN,
   async (payload, thunkAPI) => {
-    console.log({ payload });
-    // await AsyncStorage.setItem("token", payload.token);
+    localStorage.access_token = payload.access_token;
+    return true;
+  }
+);
+
+export const userLogout = createAsyncThunk(
+  USER_LOGOUT,
+  async (payload, thunkAPI) => {
+    localStorage.clear();
     return payload;
   }
 );
@@ -22,11 +25,9 @@ const rootSlice = createSlice({
     loading: false,
     error: null,
     products: [],
+    product: null,
   },
   reducers: {
-    setLogin(state, action) {
-      state.login = action.payload;
-    },
     setLoading(state, action) {
       state.loading = action.payload;
     },
@@ -36,46 +37,26 @@ const rootSlice = createSlice({
     setProducts(state, action) {
       state.products = action.payload;
     },
+    setProduct(state, action) {
+      state.product = action.payload;
+    },
   },
   extraReducers: (builder) => {
-    builder.addCase(userLogin.fulfilled, (state, action) => {
-      console.log(state, action);
-      {
+    builder
+      .addCase(userLogin.fulfilled, (state, action) => {
         state.login = action.payload;
-      }
-    });
+      })
+      .addCase(userLogout.fulfilled, (state, action) => {
+        state.login = false;
+        state.loading = false;
+        state.error = null;
+        state.products = [];
+        state.product = null;
+      });
   },
 });
 
+export const { setLogin, setLoading, setError, setProducts, setProduct } =
+  rootSlice.actions;
+
 export default rootSlice.reducer;
-
-// const rootReducer =
-//   ((state = initialState),
-//   (action) => {
-//     switch (action.type) {
-//       case SET_LOGIN:
-//         return {
-//           ...state,
-//           login: action.payload,
-//         };
-//       case SET_LOADING:
-//         return {
-//           ...state,
-//           loading: action.payload,
-//         };
-//       case SET_ERROR:
-//         return {
-//           ...state,
-//           error: action.payload,
-//         };
-//       case SET_PRODUCTS:
-//         return {
-//           ...state,
-//           products: action.payload,
-//         };
-//         default:
-//           return state;
-//     }
-//   });
-
-// export default rootReducer;

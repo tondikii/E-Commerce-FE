@@ -6,13 +6,13 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import HomePage from "./pages/Home";
 import LoginPage from "./pages/auth/Login";
 import ErrorNotFound from "./pages/errors/NotFound";
 import RegisterPage from "./pages/auth/Register";
-// import store from "./store";
-// import ReactDOM from 'react-dom'
-// import { Provider } from "react-redux";
+import HomePage from "./pages/main/Home";
+import CreatePage from "./pages/main/Create";
+import EditPage from "./pages/main/Edit";
+
 function App() {
   const RequiredLogin = ({ children }) => {
     if (!localStorage.access_token) {
@@ -33,6 +33,22 @@ function App() {
           element={
             <RequiredLogin>
               <HomePage />
+            </RequiredLogin>
+          }
+        />
+        <Route
+          path="/create"
+          element={
+            <RequiredLogin>
+              <CreatePage />
+            </RequiredLogin>
+          }
+        />
+        <Route
+          path="/edit/:id"
+          element={
+            <RequiredLogin>
+              <EditPage />
             </RequiredLogin>
           }
         />

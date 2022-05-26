@@ -1,8 +1,15 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
+import { LogoutIcon, ShoppingBagIcon } from "@heroicons/react/outline";
+import UilStore from "@iconscout/react-unicons/icons/uil-store";
+import { useDispatch } from "react-redux";
+import { userLogout } from "../../store/reducers/root";
 
 export default function Sidebar() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  // console.log(location.pathname, "<<<<<<<<<<<")
 
   const onLogout = () => {
     Swal.fire({
@@ -14,24 +21,41 @@ export default function Sidebar() {
       showDenyButton: true,
     }).then((response) => {
       if (response.isConfirmed) {
-        localStorage.clear();
+        dispatch(userLogout())
         navigate("/login");
       }
     });
   };
 
   return (
-    <div className="flex flex-col bg-blue-900 w-72 py-6 px-8 h-screen rounded-r-xl fixed">
-      <div className="">
-        <Link to="/" className=" text-2xl text-white font-bold font-mono">
-          Hana Aqua
+    <div className="flex flex-col bg-blue-900 w-64 py-6 px-8 h-screen rounded-r-xl fixed justify-between">
+      <div className="flex flex-col">
+        <div className="mb-8">
+          <Link to="/">
+            <div className="flex flex-row items-center space-x-1">
+              <UilStore color="white" size={32} />
+              <p className=" text-2xl text-white font-bold font-sans">
+                Hana Aqua
+              </p>
+            </div>
+          </Link>
+        </div>
+        <Link to="/">
+          <div className="flex flex-row items-center space-x-1">
+            <ShoppingBagIcon class="h-7 w-7 text-white font-bold" />
+            <p className=" text-xl text-white font-bold font-sans">Product</p>
+          </div>
         </Link>
       </div>
-      <div>
+      <div
+        className="flex flex-row items-center space-x-1"
+        role="button"
+        onClick={onLogout}
+      >
+        <LogoutIcon class="h-7 w-7 text-white font-bold" />
         <span
-          className="text-white text-lg font-semibold font-mono"
+          className="text-white text-lg font-semibold font-sans"
           role="button"
-          onClick={onLogout}
         >
           logout
         </span>

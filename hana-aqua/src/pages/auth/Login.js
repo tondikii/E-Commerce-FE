@@ -3,9 +3,12 @@ import apiInstance from "../../configs/api";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { ExclamationCircleIcon } from "@heroicons/react/outline";
+import { userLogin } from "../../store/reducers/root";
+import { useDispatch } from "react-redux";
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [loginForm, setLoginForm] = useState({
     email: "",
     password: "",
@@ -30,12 +33,17 @@ export default function LoginPage() {
         email: loginForm.email,
         password: loginForm.password,
       });
-      localStorage.access_token = login.access_token;
-      navigate("/");
-      Swal.fire({
-        title: "Login Successful",
-        icon: "success",
-      });
+      console.log({login});
+      if(login.role === "admin"){
+        await dispatch(userLogin(login));
+        navigate("/");
+        Swal.fire({
+          title: "Login Successful",
+          icon: "success",
+        });
+      } else {
+        setErrors({ ...errors, email: "Invalid Email" });
+      }
     } catch (err) {
       console.log(err);
       if (err?.response?.data?.error) {
