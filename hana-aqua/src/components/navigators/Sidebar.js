@@ -9,7 +9,7 @@ export default function Sidebar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  // console.log(location.pathname, "<<<<<<<<<<<")
+  // console.log(location.pathname.split("/"), "<<<<<<<<<<<")
 
   const onLogout = () => {
     Swal.fire({
@@ -30,9 +30,9 @@ export default function Sidebar() {
   return (
     <div className="flex flex-col bg-blue-900 w-64 py-6 px-8 h-screen rounded-r-xl fixed justify-between">
       <div className="flex flex-col">
-        <div className="mb-8">
+        <div className="mb-4">
           <Link to="/">
-            <div className="flex flex-row items-center space-x-1">
+            <div className="flex flex-row items-center space-x-1 justify-start px-4 py-2">
               <UilStore color="white" size={32} />
               <p className=" text-2xl text-white font-bold font-sans">
                 Hana Aqua
@@ -41,14 +41,17 @@ export default function Sidebar() {
           </Link>
         </div>
         <Link to="/">
-          <div className="flex flex-row items-center space-x-1">
+          {location.pathname === "/" || location.pathname === "/create" || location.pathname.split("/")[1] === "edit" ? <div className="flex flex-row items-center space-x-1 bg-white px-4 py-2 rounded-md justify-start">
+            <ShoppingBagIcon class="h-7 w-7 text-blue-900 font-bold" />
+            <p className=" text-xl text-blue-900 font-bold font-sans">Product</p>
+          </div> : <div className="flex flex-row items-center space-x-1 bg-blue-900 px-4 py-2 rounded-md justify-start">
             <ShoppingBagIcon class="h-7 w-7 text-white font-bold" />
             <p className=" text-xl text-white font-bold font-sans">Product</p>
-          </div>
+          </div>}
         </Link>
       </div>
       <div
-        className="flex flex-row items-center space-x-1"
+        className="flex flex-row items-center space-x-1 justify-start px-4 py-2"
         role="button"
         onClick={onLogout}
       >

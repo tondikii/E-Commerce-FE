@@ -3,20 +3,16 @@ import { Editor } from "react-draft-wysiwyg";
 import { EditorState, convertToRaw, ContentState } from "draft-js";
 import draftToHtml from "draftjs-to-html";
 import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-// import SpinnerLoading from "../../components/notifications/SpinnerLoading";
 import { useEffect, useState } from "react";
 import apiInstance from "../../configs/api";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { setLoading, setError, setProduct } from "../../store/reducers/root";
+import { setLoading, setError } from "../../store/reducers/root";
 import htmlToDraft from "html-to-draftjs";
 
 export default function ProductForm({ title, id, product }) {
-  // const { product } = useSelector((state) => state.rootReducer);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const [contentState, setContentState] = useState(null);
   const [productForm, setProductForm] = useState({
     name: product ? product.name : "",
     image: "",
@@ -44,7 +40,6 @@ export default function ProductForm({ title, id, product }) {
     console.log(productForm);
     if (
       productForm.name &&
-      // productForm.image &&
       productForm.html &&
       productForm.stock > 0 &&
       productForm.price > 0 &&
@@ -144,8 +139,8 @@ export default function ProductForm({ title, id, product }) {
         {title}
       </h1>
 
-      <form className="mt-4 space-y-6">
-        <div className="">
+      <form className="mt-4">
+        <div className="space-y-4">
           <div>
             <label
               htmlFor="name"
@@ -228,13 +223,13 @@ export default function ProductForm({ title, id, product }) {
               )}
               <option
                 value={1}
-                selected={productForm.CategoryId == 1 ? true : false}
+                selected={productForm.CategoryId === 1 ? true : false}
               >
                 Tanks
               </option>
               <option
                 value={2}
-                selected={productForm.CategoryId == 2 ? true : false}
+                selected={productForm.CategoryId === 2 ? true : false}
               >
                 Ponds
               </option>
@@ -281,7 +276,7 @@ export default function ProductForm({ title, id, product }) {
         </div>
         <button
           type="submit"
-          className="relative w-full flex justify-center py-2 px-4 border-transparent text-sm font-medium rounded-md border-white bg-blue-900 text-white text-center"
+          className="relative w-full flex justify-center py-2 px-4 border-transparent text-sm font-medium rounded-md border-white bg-blue-900 text-white text-center mt-8"
           style={{ opacity: completed ? 1 : 0.5 }}
           onClick={onSubmit}
         >

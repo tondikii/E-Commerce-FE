@@ -26,6 +26,11 @@ const rootSlice = createSlice({
     error: null,
     products: [],
     product: null,
+    table: {
+      page: 1,
+      limit: 4,
+      count: 0,
+    },
   },
   reducers: {
     setLoading(state, action) {
@@ -40,6 +45,15 @@ const rootSlice = createSlice({
     setProduct(state, action) {
       state.product = action.payload;
     },
+    setTablePage(state, action) {
+      state.table.page = action.payload;
+    },
+    setTableLimit(state, action) {
+      state.table.limit = action.payload;
+    },
+    setTableCount(state, action) {
+      state.table.count = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -52,11 +66,24 @@ const rootSlice = createSlice({
         state.error = null;
         state.products = [];
         state.product = null;
+        state.table = {
+          page: 1,
+          limit: 4,
+          count: 0,
+        };
       });
   },
 });
 
-export const { setLogin, setLoading, setError, setProducts, setProduct } =
-  rootSlice.actions;
+export const {
+  setLogin,
+  setLoading,
+  setError,
+  setProducts,
+  setProduct,
+  setTableLimit,
+  setTablePage,
+  setTableCount,
+} = rootSlice.actions;
 
 export default rootSlice.reducer;

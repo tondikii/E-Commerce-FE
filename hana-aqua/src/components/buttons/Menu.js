@@ -1,5 +1,5 @@
 import { DotsVerticalIcon } from "@heroicons/react/solid";
-import { IconButton, Menu, MenuItem } from "@mui/material";
+import { Menu, MenuItem } from "@mui/material";
 import { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -9,12 +9,11 @@ import {
   setError,
   setLoading,
   setProducts,
-  setProduct,
+  setTableCount
 } from "../../store/reducers/root";
-import { useEffect } from "react";
 
 export default function MenuButton({ id }) {
-  const { products } = useSelector((state) => state.rootReducer);
+  const { table } = useSelector((state) => state.rootReducer);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -23,10 +22,13 @@ export default function MenuButton({ id }) {
   const getData = () => {
     dispatch(setLoading(true));
     apiInstance
-      .get("/products/get", {
+      .get(`/products/get?limit=${table.limit}&page=${table.page}`, {
         headers: { access_token: localStorage.access_token },
       })
-      .then(({ data }) => dispatch(setProducts(data.rows)))
+      .then(({ data }) => {
+        dispatch(setTableCount(data.count));
+        dispatch(setProducts(data.rows));
+      })
       .catch(({ response }) => dispatch(setError("Error Fetching Products")))
       .finally((res) => dispatch(setLoading(false)));
   };

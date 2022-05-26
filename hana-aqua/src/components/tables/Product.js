@@ -7,11 +7,13 @@ import {
   TableHead,
   Paper,
   TableRow,
+  TablePagination,
 } from "@mui/material";
 import { tableCellClasses } from "@mui/material/TableCell";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import MenuButton from "../buttons/Menu";
+import { useDispatch } from "react-redux";
+import { setTableLimit, setTablePage } from "../../store/reducers/root";
+import { useSelector } from "react-redux";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -34,6 +36,19 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function ProductTable({ data }) {
+  const dispatch = useDispatch();
+  const { table } = useSelector((state) => state.rootReducer);
+
+  const handleChangePage = (event, newPage) => {
+    console.log({newPage: newPage + 1});
+    dispatch(setTablePage(newPage + 1));
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    console.log({newLimit: +event.target.value})
+    dispatch(setTableLimit(+event.target.value));
+    dispatch(setTablePage(1));
+  };
 
   if (data)
     return (
@@ -70,6 +85,15 @@ export default function ProductTable({ data }) {
             ))}
           </TableBody>
         </Table>
+        <TablePagination
+          rowsPerPageOptions={[3, 4, 5]}
+          component="div"
+          count={table.count}
+          rowsPerPage={table.limit}
+          page={table.page - 1}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
       </TableContainer>
     );
 }
