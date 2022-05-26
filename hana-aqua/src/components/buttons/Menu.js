@@ -15,15 +15,10 @@ import { useEffect } from "react";
 
 export default function MenuButton({ id }) {
   const { products } = useSelector((state) => state.rootReducer);
-  const [currentProduct, setCurrentProduct] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-
-  useEffect(() => {
-    setCurrentProduct(products.find((product) => product.id == id));
-  }, []);
 
   const getData = () => {
     dispatch(setLoading(true));
@@ -93,7 +88,6 @@ export default function MenuButton({ id }) {
         <MenuItem
           onClick={() => {
             setAnchorEl(null);
-            dispatch(setProduct(currentProduct));
             navigate(`/edit/${id}`);
           }}
         >

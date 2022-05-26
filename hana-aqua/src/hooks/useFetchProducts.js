@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setProducts, setLoading, setError } from "../store/reducers/root";
 import apiInstance from "../configs/api";
 
-export default function useFetchJobs() {
+export default function useFetchProducts() {
   const { products } = useSelector((state) => state.rootReducer);
   const dispatch = useDispatch();
 

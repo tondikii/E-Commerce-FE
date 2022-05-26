@@ -9,20 +9,18 @@ import apiInstance from "../../configs/api";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { setLoading, setError } from "../../store/reducers/root";
+import { setLoading, setError, setProduct } from "../../store/reducers/root";
 import htmlToDraft from "html-to-draftjs";
 
-export default function ProductForm({ title, id }) {
-  const { product } = useSelector((state) => state.rootReducer);
+export default function ProductForm({ title, id, product }) {
+  // const { product } = useSelector((state) => state.rootReducer);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [contentState, setContentState] = useState(null);
+  // const [contentState, setContentState] = useState(null);
   const [productForm, setProductForm] = useState({
     name: product ? product.name : "",
     image: "",
-    description: contentState
-      ? EditorState.createWithContent(contentState)
-      : EditorState.createEmpty(),
+    description: EditorState.createEmpty(),
     html: product ? product.description : "",
     stock: product ? product.stock : 0,
     price: product ? product.price : 0,
@@ -34,11 +32,11 @@ export default function ProductForm({ title, id }) {
     if (product) {
       const contentBlock = htmlToDraft(product.description);
       console.log({ contentBlock });
-      const stateContent = ContentState.createFromBlockArray(
+      const contentState = ContentState.createFromBlockArray(
         contentBlock.contentBlocks
       );
-      console.log({ stateContent });
-      setContentState(stateContent);
+      const editorState = EditorState.createWithContent(contentState);
+      setProductForm({ ...productForm, description: editorState });
     }
   }, []);
 
