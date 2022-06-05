@@ -40,12 +40,10 @@ export default function ProductTable({ data }) {
   const { table } = useSelector((state) => state.rootReducer);
 
   const handleChangePage = (event, newPage) => {
-    console.log({newPage: newPage + 1});
     dispatch(setTablePage(newPage + 1));
   };
 
   const handleChangeRowsPerPage = (event) => {
-    console.log({newLimit: +event.target.value})
     dispatch(setTableLimit(+event.target.value));
     dispatch(setTablePage(1));
   };

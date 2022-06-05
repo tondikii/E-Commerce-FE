@@ -14,17 +14,14 @@ export default function useFetchOneProduct({id}) {
         headers: { access_token: localStorage.access_token },
       })
       .then(({ data }) => {
-        console.log({data});
         dispatch(setProduct(data))
       })
       .catch((err) => {
-        console.log({err});
         dispatch(setError("Error Fetching Product"))
       })
       .finally((res) => {
         dispatch(setLoading(false))
       });
   }, []);
-  console.log({ product });
   return  product ;
 }

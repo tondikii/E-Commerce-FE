@@ -9,7 +9,6 @@ export default function Sidebar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  // console.log(location.pathname.split("/"), "<<<<<<<<<<<")
 
   const onLogout = () => {
     Swal.fire({
@@ -42,10 +41,10 @@ export default function Sidebar() {
         </div>
         <Link to="/">
           {location.pathname === "/" || location.pathname === "/create" || location.pathname.split("/")[1] === "edit" ? <div className="flex flex-row items-center space-x-1 bg-white px-4 py-2 rounded-md justify-start">
-            <ShoppingBagIcon class="h-7 w-7 text-blue-900 font-bold" />
+            <ShoppingBagIcon className="h-7 w-7 text-blue-900 font-bold" />
             <p className=" text-xl text-blue-900 font-bold font-sans">Product</p>
           </div> : <div className="flex flex-row items-center space-x-1 bg-blue-900 px-4 py-2 rounded-md justify-start">
-            <ShoppingBagIcon class="h-7 w-7 text-white font-bold" />
+            <ShoppingBagIcon className="h-7 w-7 text-white font-bold" />
             <p className=" text-xl text-white font-bold font-sans">Product</p>
           </div>}
         </Link>
@@ -55,7 +54,7 @@ export default function Sidebar() {
         role="button"
         onClick={onLogout}
       >
-        <LogoutIcon class="h-7 w-7 text-white font-bold" />
+        <LogoutIcon className="h-7 w-7 text-white font-bold" />
         <span
           className="text-white text-lg font-semibold font-sans"
           role="button"

@@ -28,12 +28,10 @@ export default function LoginPage() {
   const onLogin = async (e) => {
     try {
       e.preventDefault();
-      console.log({ loginForm });
       const { data: login } = await apiInstance.post("/users/login", {
         email: loginForm.email,
         password: loginForm.password,
       });
-      console.log({login});
       if(login.role === "admin"){
         await dispatch(userLogin(login));
         navigate("/");
@@ -45,7 +43,6 @@ export default function LoginPage() {
         setErrors({ ...errors, email: "Invalid Email" });
       }
     } catch (err) {
-      console.log(err);
       if (err?.response?.data?.error) {
         const error = err.response.data.error;
         if (error === "Email or Password is Required") {
@@ -92,7 +89,7 @@ export default function LoginPage() {
             />
             {errors.email && (
               <div className="flex flex-row items-center space-x-1 w-screen my-1">
-                <ExclamationCircleIcon class="h-5 w-5 text-yellow-400 font-bold" />
+                <ExclamationCircleIcon className="h-5 w-5 text-yellow-400 font-bold" />
                 <p className="text-sm text-yellow-400 font-medium">
                   {errors.email}
                 </p>
@@ -118,7 +115,7 @@ export default function LoginPage() {
             />
             {errors.password && (
               <div className="flex flex-row items-center space-x-1 w-screen my-1">
-                <ExclamationCircleIcon class="h-5 w-5 text-yellow-400 font-bold" />
+                <ExclamationCircleIcon className="h-5 w-5 text-yellow-400 font-bold" />
                 <p className="text-sm text-yellow-400 font-medium">
                   {errors.password}
                 </p>

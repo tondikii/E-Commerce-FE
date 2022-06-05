@@ -65,7 +65,6 @@ export default function MenuButton({ id }) {
         }
       }
     } catch (err) {
-      console.log(err, "ERROR DELETE PRODUCT");
       dispatch(setError(`Error Delete Product id ${id}`));
     } finally {
       dispatch(setLoading(false));

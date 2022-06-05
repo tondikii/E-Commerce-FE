@@ -27,7 +27,6 @@ export default function ProductForm({ title, id, product }) {
   useEffect(() => {
     if (product) {
       const contentBlock = htmlToDraft(product.description);
-      console.log({ contentBlock });
       const contentState = ContentState.createFromBlockArray(
         contentBlock.contentBlocks
       );
@@ -37,7 +36,6 @@ export default function ProductForm({ title, id, product }) {
   }, []);
 
   useEffect(() => {
-    console.log(productForm);
     if (
       productForm.name &&
       productForm.html &&
@@ -83,7 +81,6 @@ export default function ProductForm({ title, id, product }) {
       formData.append("CategoryId", productForm.CategoryId);
       let data;
       if (id) {
-        console.log("UPDATING");
         const { data: update } = await apiInstance.put(
           `/products/update/${id}`,
           formData,
@@ -94,7 +91,6 @@ export default function ProductForm({ title, id, product }) {
         data = update;
       }
       if (!id) {
-        console.log("CREATING");
         const { data: create } = await apiInstance.post(
           "/products/create",
           formData,
@@ -104,7 +100,6 @@ export default function ProductForm({ title, id, product }) {
         );
         data = create;
       }
-      console.log({ data });
       if (data.id) {
         navigate("/");
         const Toast = Swal.mixin({
@@ -126,7 +121,6 @@ export default function ProductForm({ title, id, product }) {
         });
       }
     } catch (err) {
-      console.log(err);
       dispatch(setError("Error Create Product"));
     } finally {
       dispatch(setLoading(false));

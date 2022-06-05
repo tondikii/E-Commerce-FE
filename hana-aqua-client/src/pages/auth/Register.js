@@ -33,16 +33,10 @@ export default function RegisterPage() {
     setRegisterForm({ ...registerForm, [name]: value });
   };
 
-  useEffect(() => {
-    console.log({ errors });
-  }, [errors]);
-
   const onRegister = async (e) => {
     try {
       e.preventDefault();
-      console.log({ registerForm });
       const { data } = await apiInstance.post("/users/register", registerForm);
-      console.log({ data });
       if (data?.user) {
         const { data: login } = await apiInstance.post("/users/login", {
           email: registerForm.email,
@@ -56,7 +50,6 @@ export default function RegisterPage() {
         });
       }
     } catch (err) {
-      console.log(err);
       if (err?.response?.data?.error) {
         const error = err.response.data.error;
         error.forEach((each) => {
@@ -115,7 +108,7 @@ export default function RegisterPage() {
             {errors.fullName.length > 0 &&
               errors.fullName.map((err) => (
                 <div className="flex flex-row items-center space-x-1 w-screen my-1">
-                  <ExclamationCircleIcon class="h-5 w-5 text-yellow-400 font-bold" />
+                  <ExclamationCircleIcon className="h-5 w-5 text-yellow-400 font-bold" />
                   <p className="text-sm text-yellow-400 font-medium">{err}</p>
                 </div>
               ))}
@@ -139,13 +132,13 @@ export default function RegisterPage() {
             {errors.email.length > 0 &&
               errors.email.map((err) => (
                 <div className="flex flex-row items-center space-x-1 w-screen my-1">
-                  <ExclamationCircleIcon class="h-5 w-5 text-yellow-400 font-bold" />
+                  <ExclamationCircleIcon className="h-5 w-5 text-yellow-400 font-bold" />
                   <p className="text-sm text-yellow-400 font-medium">{err}</p>
                 </div>
               ))}
             {errors.email === 1 && (
               <div className="flex flex-row items-center space-x-1 w-screen my-1">
-                <ExclamationCircleIcon class="h-5 w-5 text-yellow-400 font-bold" />
+                <ExclamationCircleIcon className="h-5 w-5 text-yellow-400 font-bold" />
                 <p className="text-sm text-yellow-400 font-medium">
                   Email already exist
                 </p>
@@ -171,13 +164,13 @@ export default function RegisterPage() {
             {errors.password.length > 0 &&
               errors.password.map((err) => (
                 <div className="flex flex-row items-center space-x-1 w-screen my-1">
-                  <ExclamationCircleIcon class="h-5 w-5 text-yellow-400 font-bold" />
+                  <ExclamationCircleIcon className="h-5 w-5 text-yellow-400 font-bold" />
                   <p className="text-sm text-yellow-400 font-medium">{err}</p>
                 </div>
               ))}
             {errors.password === 1 && (
               <div className="flex flex-row items-center space-x-1 w-screen my-1">
-                <ExclamationCircleIcon class="h-5 w-5 text-yellow-400 font-bold" />
+                <ExclamationCircleIcon className="h-5 w-5 text-yellow-400 font-bold" />
                 <p className="text-sm text-yellow-400 font-medium">
                   Password should be more than equal 6 characters
                 </p>
@@ -203,13 +196,13 @@ export default function RegisterPage() {
             {errors.phoneNumber.length > 0 &&
               errors.phoneNumber.map((err) => (
                 <div className="flex flex-row items-center space-x-1 w-screen my-1">
-                  <ExclamationCircleIcon class="h-5 w-5 text-yellow-400 font-bold" />
+                  <ExclamationCircleIcon className="h-5 w-5 text-yellow-400 font-bold" />
                   <p className="text-sm text-yellow-400 font-medium">{err}</p>
                 </div>
               ))}
             {errors.phoneNumber === 1 && (
               <div className="flex flex-row items-center space-x-1 w-screen my-1">
-                <ExclamationCircleIcon class="h-5 w-5 text-yellow-400 font-bold" />
+                <ExclamationCircleIcon className="h-5 w-5 text-yellow-400 font-bold" />
                 <p className="text-sm text-yellow-400 font-medium">
                   Phone Number cannot be empty
                 </p>

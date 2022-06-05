@@ -7,7 +7,6 @@ import {Fragment} from "react"
 function Layout({ children }) {
   const { loading, error } = useSelector((state) => state.rootReducer);
 
-  console.log({ error }, "<<<<<<");
   return (
     <Fragment>
       {error && <NotifError />}

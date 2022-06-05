@@ -20,12 +20,11 @@ export default function useFetchProducts() {
         headers: { access_token: localStorage.access_token },
       })
       .then(({ data }) => {
-        console.log({ data });
         dispatch(setTableCount(data.count));
+        // if(data.rows.length < 1) throw
         dispatch(setProducts(data.rows));
       })
       .catch(({ response }) => {
-        console.log({ response });
         dispatch(setError("Error Fetching Products"));
       })
       .finally((res) => {
