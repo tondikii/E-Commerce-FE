@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import apiInstance from "../../config/api";
+import apiInstance from "../../configs/api";
 
 export default function HomePage() {
   const [data, setData] = useState(null);
@@ -18,9 +18,12 @@ export default function HomePage() {
   if (!data)
     return (
       <div className="flex justify-center items-center h-screen">
-        <h1 className="text-black text-5xl font-semibold">
+        <h1 className="text-blue-900 text-5xl font-semibold">
           Loading...
         </h1>
+        <div className="">
+          {/* <img src={data[0].imageURL} */}
+        </div>
       </div>
     );
 

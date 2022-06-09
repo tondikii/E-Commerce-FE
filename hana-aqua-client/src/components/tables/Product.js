@@ -14,6 +14,7 @@ import MenuButton from "../buttons/Menu";
 import { useDispatch } from "react-redux";
 import { setTableLimit, setTablePage } from "../../store/reducers/root";
 import { useSelector } from "react-redux";
+import { rupiah } from "../../helpers/currencyFormatter";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -74,7 +75,7 @@ export default function ProductTable({ data }) {
                   />
                 </StyledTableCell>
                 <StyledTableCell>{row.name}</StyledTableCell>
-                <StyledTableCell>{row.price}</StyledTableCell>
+                <StyledTableCell>{`RP ${rupiah(row.price)}`}</StyledTableCell>
                 <StyledTableCell>{row.stock}</StyledTableCell>
                 <StyledTableCell>
                   <MenuButton id={row.id} />
