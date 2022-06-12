@@ -48,7 +48,7 @@ export default function ProductDetail() {
         <div dangerouslySetInnerHTML={{ __html: product.description }} />
       </div>
       <a
-      href={`https://api.whatsapp.com/send?phone=085920685311&text=Saya%20tertarik%20dengan%20produk%20${product.name}`}
+      href={`https://api.whatsapp.com/send?phone=6285920685311&text=Saya%20tertarik%20dengan%20produk%20${product.name}`}
     >
       <button className="bg-green-700 flex flex-row w-96 self-center px-4 py-2 rounded-md items-center justify-center space-x-2">
         <img className="h-6 w-6" src={WhatsAppImage} />
