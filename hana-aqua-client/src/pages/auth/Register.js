@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import apiInstance from "../../configs/api";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { userLogin } from "../../store/reducers/root";
 import { ExclamationCircleIcon } from "@heroicons/react/outline";
@@ -56,25 +56,33 @@ export default function RegisterPage() {
           if (
             each.split(" ").find((el) => el.toLowerCase() === "password") !==
             undefined
-          )
-            setErrors({ ...errors, password: errors.password.push(each) });
-          else if (
+          ) {
+            setErrors((prevState) => {
+              return { ...prevState, password: [...errors.password, each] };
+            });
+          } else if (
             each.split(" ").find((el) => el.toLowerCase() === "name") !==
             undefined
-          )
-            setErrors({ ...errors, fullName: errors.fullName.push(each) });
-          else if (
+          ) {
+            setErrors((prevState) => {
+              return { ...prevState, fullName: [...errors.fullName, each] };
+            });
+          } else if (
             each.split(" ").find((el) => el.toLowerCase() === "email") !==
             undefined
-          )
-            setErrors({ ...errors, email: errors.email.push(each) });
-          else if (
+          ) {
+            setErrors((prevState) => {
+              return { ...prevState, email: [...errors.email, each] };
+            });
+          } else if (
             each.split(" ").find((el) => el.toLowerCase() === "number") !==
             undefined
           ) {
-            setErrors({
-              ...errors,
-              phoneNumber: errors.phoneNumber.push(each),
+            setErrors((prevState) => {
+              return {
+                ...prevState,
+                phoneNumber: [...errors.phoneNumber, each],
+              };
             });
           }
         });
@@ -136,14 +144,14 @@ export default function RegisterPage() {
                   <p className="text-sm text-yellow-400 font-medium">{err}</p>
                 </div>
               ))}
-            {errors.email === 1 && (
+            {/* {errors.email  === 1 && (
               <div className="flex flex-row items-center space-x-1 w-screen my-1">
                 <ExclamationCircleIcon className="h-5 w-5 text-yellow-400 font-bold" />
                 <p className="text-sm text-yellow-400 font-medium">
                   Email already exist
                 </p>
               </div>
-            )}
+            )} */}
           </div>
           <div>
             <label
@@ -168,14 +176,14 @@ export default function RegisterPage() {
                   <p className="text-sm text-yellow-400 font-medium">{err}</p>
                 </div>
               ))}
-            {errors.password === 1 && (
+            {/* {errors.password === 1 && (
               <div className="flex flex-row items-center space-x-1 w-screen my-1">
                 <ExclamationCircleIcon className="h-5 w-5 text-yellow-400 font-bold" />
                 <p className="text-sm text-yellow-400 font-medium">
                   Password should be more than equal 6 characters
                 </p>
               </div>
-            )}
+            )} */}
           </div>
           <div>
             <label
@@ -200,14 +208,14 @@ export default function RegisterPage() {
                   <p className="text-sm text-yellow-400 font-medium">{err}</p>
                 </div>
               ))}
-            {errors.phoneNumber === 1 && (
+            {/* {errors.phoneNumber === 1 && (
               <div className="flex flex-row items-center space-x-1 w-screen my-1">
                 <ExclamationCircleIcon className="h-5 w-5 text-yellow-400 font-bold" />
                 <p className="text-sm text-yellow-400 font-medium">
                   Phone Number cannot be empty
                 </p>
               </div>
-            )}
+            )} */}
           </div>
         </div>
         <button

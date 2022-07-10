@@ -3,26 +3,28 @@ import { Editor } from "react-draft-wysiwyg";
 import { EditorState, convertToRaw, ContentState } from "draft-js";
 import draftToHtml from "draftjs-to-html";
 import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import apiInstance from "../../configs/api";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setLoading, setError } from "../../store/reducers/root";
 import htmlToDraft from "html-to-draftjs";
+import { currencyMask, formatNumber } from "../../helpers/mask";
 
 export default function ProductForm({ title, id, product }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  console.log({ product });
   const [productForm, setProductForm] = useState({
     name: product ? product.name : "",
     image: "",
     description: EditorState.createEmpty(),
     html: product ? product.description : "",
-    stock: product ? product.stock : 0,
-    price: product ? product.price : 0,
+    price: product ? formatNumber(product.price.toString()) : "",
     CategoryId: product ? product.CategoryId : 0,
   });
   const [completed, setCompleted] = useState(false);
+  const [preview, setPreview] = useState("");
 
   useEffect(() => {
     if (product) {
@@ -39,8 +41,8 @@ export default function ProductForm({ title, id, product }) {
     if (
       productForm.name &&
       productForm.html &&
-      productForm.stock > 0 &&
-      productForm.price > 0 &&
+      // productForm.stock > 0 &&
+      Number(productForm.price.split(",").join("")) > 0 &&
       productForm.CategoryId
     ) {
       if (!product) {
@@ -57,10 +59,23 @@ export default function ProductForm({ title, id, product }) {
     const { name, value } = e.target;
     setProductForm({ ...productForm, [name]: value });
   };
+
   const changeValueFile = (e) => {
-    const file = e.target.files[0];
-    setProductForm({ ...productForm, [e.target.name]: file });
-  };
+      const maxSize = 1 * 1024 * 1024;
+      const file = e.target.files[0];
+      if (file.size > maxSize) {
+        Swal.fire({
+          icon: "error",
+          title: "File Size",
+          text: "Maximum file size is 1mb!",
+        });
+      } else {
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        setPreview(reader);
+        setProductForm({ ...productForm, [e.target.name]: file });
+      }
+    }
   const descriptionChange = (editorState) => {
     setProductForm((prev) => ({
       ...prev,
@@ -76,8 +91,8 @@ export default function ProductForm({ title, id, product }) {
       formData.append("name", productForm.name);
       if (productForm.image) formData.append("file", productForm.image);
       formData.append("description", productForm.html);
-      formData.append("stock", productForm.stock);
-      formData.append("price", productForm.price);
+      // formData.append("stock", productForm.stock);
+      formData.append("price", Number(productForm.price.split(",").join("")));
       formData.append("CategoryId", productForm.CategoryId);
       let data;
       if (id) {
@@ -171,6 +186,13 @@ export default function ProductForm({ title, id, product }) {
               placeholder="Image"
               onChange={(e) => changeValueFile(e)}
             />
+            {preview.result ? (
+              <img src={preview.result} className="w-48 h-48 mt-4" />
+            ) : (
+              product && (
+                <img src={product.imageURL} className="w-48 h-48 mt-4" />
+              )
+            )}
           </div>
 
           <div>
@@ -230,7 +252,7 @@ export default function ProductForm({ title, id, product }) {
             </select>
           </div>
 
-          <div>
+          {/* <div>
             <label
               htmlFor="stock"
               className=" text-lg font-semibold text-blue-900"
@@ -247,7 +269,7 @@ export default function ProductForm({ title, id, product }) {
               defaultValue={productForm.stock}
               onChange={(e) => changeValue(e)}
             />
-          </div>
+          </div> */}
 
           <div>
             <label
@@ -256,16 +278,21 @@ export default function ProductForm({ title, id, product }) {
             >
               Price
             </label>
-            <input
-              id="price"
-              name="price"
-              type="number"
-              required
-              className=" relative w-full px-3 py-2 border-2 border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:border-blue-900 "
-              placeholder="Price"
-              defaultValue={productForm.price}
-              onChange={(e) => changeValue(e)}
-            />
+            <div className="flex flex-row">
+              <div className="px-3 py-2 border-2 border-gray-300 rounded-l-md border-r-0">
+                <span>RP</span>
+              </div>
+              <input
+                id="price"
+                name="price"
+                type="text"
+                required
+                className=" relative w-full px-3 py-2 border-2 border-gray-300 placeholder-gray-500 text-gray-900 rounded-r-md focus:outline-none focus:border-blue-900 "
+                placeholder="100,000"
+                value={productForm.price}
+                onChange={(e) => changeValue(currencyMask(e))}
+              />
+            </div>
           </div>
         </div>
         <button

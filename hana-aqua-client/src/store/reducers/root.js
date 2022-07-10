@@ -6,6 +6,8 @@ export const userLogin = createAsyncThunk(
   USER_LOGIN,
   async (payload, thunkAPI) => {
     localStorage.access_token = payload.access_token;
+    localStorage.fullName = payload.fullName;
+    localStorage.phoneNumber = payload.phoneNumber;
     return true;
   }
 );

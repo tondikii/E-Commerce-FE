@@ -59,7 +59,6 @@ export default function ProductTable({ data }) {
               <StyledTableCell>Picture</StyledTableCell>
               <StyledTableCell>Name</StyledTableCell>
               <StyledTableCell>Price</StyledTableCell>
-              <StyledTableCell>Stock</StyledTableCell>
               <StyledTableCell>Action</StyledTableCell>
             </TableRow>
           </TableHead>
@@ -76,7 +75,6 @@ export default function ProductTable({ data }) {
                 </StyledTableCell>
                 <StyledTableCell>{row.name}</StyledTableCell>
                 <StyledTableCell>{`RP ${rupiah(row.price)}`}</StyledTableCell>
-                <StyledTableCell>{row.stock}</StyledTableCell>
                 <StyledTableCell>
                   <MenuButton id={row.id} />
                 </StyledTableCell>
