@@ -1,6 +1,6 @@
-# Getting Started with Create Hana Aqua
+# Getting Started with Create Hana Aqua Customer
 
-This project was bootstrapped with [Create Hana Aqua](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create Hana Aqua Customer](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
@@ -41,7 +41,7 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
 
 ## Learn More
 
-You can learn more in the [Create Hana Aqua documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+You can learn more in the [Create Hana Aqua Customer documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 

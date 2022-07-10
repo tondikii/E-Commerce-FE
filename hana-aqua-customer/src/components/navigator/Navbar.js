@@ -94,7 +94,7 @@ const Navbar = () => {
                     : "text-white text-xs font-bold p-2 md:text-xl lg:text-2xl xl:text-3xl"
                 }
               >
-                Hana Aqua
+                Hana Aqua Customer
               </NavLink>
               {pathname[1] !== "p" && (
                 <div className="flex flex-row justify-evenly items-center text-white">
