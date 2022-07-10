@@ -29,10 +29,10 @@ export default function ProductDetail() {
   if (loading || !product) return <Loading />;
 
   return (
-    <div className="flex flex-col justify-start w-full self-center space-y-4 px-4">
+    <div className="flex flex-col justify-start w-full self-center space-y-4 px-4 mt-4">
       <img
         src={product.imageURL}
-        className="w-96 h-96 rounded-md self-center "
+        className="w-80 h-80 rounded-md self-center "
       />
       <div className="flex flex-col space-y-1">
         <h3 className="text-xl text-gray-500 font-semibold">

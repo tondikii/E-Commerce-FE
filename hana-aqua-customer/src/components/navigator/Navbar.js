@@ -3,10 +3,12 @@ import Swal from "sweetalert2";
 import { Disclosure } from "@headlessui/react";
 import { Fragment, useEffect, useState, useRef } from "react";
 import { FilterIcon, XIcon, SearchIcon } from "@heroicons/react/outline";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const { query } = useParams();
+  const { pathname } = useLocation();
+  console.log({ pathname });
   const navigate = useNavigate();
   const queryRef = useRef(null); // Reference to the input;
   const isSearched = query?.split("&").find((el) => el[0] === "s") || undefined;
@@ -18,10 +20,14 @@ const Navbar = () => {
       name: "Tanks",
       href: `/${
         query
-          ? `${query
-              .split("&")
-              .filter((el) => el[0] !== "c")
-              .join("").length > 0 ? "&" : ""}`
+          ? `${
+              query
+                .split("&")
+                .filter((el) => el[0] !== "c")
+                .join("").length > 0
+                ? `search=${searchForm}&`
+                : ""
+            }`
           : ""
       }category=1`,
       current:
@@ -34,10 +40,14 @@ const Navbar = () => {
       name: "Ponds",
       href: `/${
         query
-          ? `${query
-              .split("&")
-              .filter((el) => el[0] !== "c")
-              .join("").length > 0 ? "&" : ""}`
+          ? `${
+              query
+                .split("&")
+                .filter((el) => el[0] !== "c")
+                .join("").length > 0
+                ? `search=${searchForm}&`
+                : ""
+            }`
           : ""
       }category=2`,
       current:
@@ -78,53 +88,63 @@ const Navbar = () => {
             <div className="flex flex-row justify-center items-center">
               <NavLink
                 to="/"
-                className={({isActive}) =>  (isActive ? "bg-white text-blue-900  text-xs font-bold p-2 md:text-xl lg:text-2xl xl:text-3xl rounded-md" : "text-white text-xs font-bold p-2 md:text-xl lg:text-2xl xl:text-3xl")}
+                className={({ isActive }) =>
+                  isActive
+                    ? "bg-white text-blue-900  text-xs font-bold p-2 md:text-xl lg:text-2xl xl:text-3xl rounded-md"
+                    : "text-white text-xs font-bold p-2 md:text-xl lg:text-2xl xl:text-3xl"
+                }
               >
                 Hana Aqua
               </NavLink>
-              <div className="flex flex-row justify-evenly items-center text-white">
-                {navigation.map((item) => (
-                  <NavLink
-                    key={item.name}
-                    to={item.href}
-                    className={
-                      item.current
-                        ? "py-2 px-4 bg-white text-blue-900 xl:text-2xl md:text-lg lg:text-xl hidden sm:flex font-bold rounded-md"
-                        : "py-2 px-4 xl:text-2xl md:text-lg lg:text-xl hidden sm:flex font-bold"
-                    }
-                  >
-                    {item.name}
-                  </NavLink>
-                ))}
-              </div>
-            </div>
-            <form onSubmit={onSearch} className="flex flex-row">
-              <button type="submit">
-                <SearchIcon className="block h-8 w-8 bg-blue-900 text-white p-2 border border-white rounded-sm rounded-r-none md:h-10 md:w-10 lg:h-12 lg:w-12" />
-              </button>
-              <input
-                ref={queryRef}
-                type="text"
-                placeholder="Cari Produk"
-                className="w-48 md:w-72 md:h-10 lg:h-12 lg:w-96 rounded-sm rounded-l-none"
-                value={searchForm}
-                onChange={(e) => setSearchForm(e.target.value)}
-              />
-            </form>
-            <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white md:hidden">
-              <span className="sr-only">Open main menu</span>
-              {open ? (
-                <XIcon
-                  className="block h-6 w-6 text-white"
-                  aria-hidden="true"
-                />
-              ) : (
-                <FilterIcon
-                  className="block h-6 w-6 text-white"
-                  aria-hidden="true"
-                />
+              {pathname[1] !== "p" && (
+                <div className="flex flex-row justify-evenly items-center text-white">
+                  {navigation.map((item) => (
+                    <NavLink
+                      key={item.name}
+                      to={item.href}
+                      className={
+                        item.current
+                          ? "py-2 px-4 bg-white text-blue-900 xl:text-2xl md:text-lg lg:text-xl hidden sm:flex font-bold rounded-md"
+                          : "py-2 px-4 xl:text-2xl md:text-lg lg:text-xl hidden sm:flex font-bold"
+                      }
+                    >
+                      {item.name}
+                    </NavLink>
+                  ))}
+                </div>
               )}
-            </Disclosure.Button>
+            </div>
+            {pathname[1] !== "p" && (
+              <form onSubmit={onSearch} className="flex flex-row">
+                <button type="submit">
+                  <SearchIcon className="block h-8 w-8 bg-blue-900 text-white p-2 border border-white rounded-sm rounded-r-none md:h-10 md:w-10 lg:h-12 lg:w-12" />
+                </button>
+                <input
+                  ref={queryRef}
+                  type="text"
+                  placeholder="Cari Produk"
+                  className="w-48 md:w-72 md:h-10 lg:h-12 lg:w-96 rounded-sm rounded-l-none"
+                  value={searchForm}
+                  onChange={(e) => setSearchForm(e.target.value)}
+                />
+              </form>
+            )}
+            {pathname[1] !== "p" && (
+              <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white md:hidden">
+                <span className="sr-only">Open main menu</span>
+                {open ? (
+                  <XIcon
+                    className="block h-6 w-6 text-white"
+                    aria-hidden="true"
+                  />
+                ) : (
+                  <FilterIcon
+                    className="block h-6 w-6 text-white"
+                    aria-hidden="true"
+                  />
+                )}
+              </Disclosure.Button>
+            )}
           </nav>
           <Disclosure.Panel className="sm:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1">
