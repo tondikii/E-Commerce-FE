@@ -70,9 +70,8 @@ export default function ProductForm({ title, id, product }) {
           text: "Maximum file size is 1mb!",
         });
       } else {
-        let reader = new FileReader();
-        reader.readAsDataURL(file);
-        setPreview(reader);
+        const url = URL.createObjectURL(file)
+        setPreview(url);
         setProductForm({ ...productForm, [e.target.name]: file });
       }
     }
@@ -186,13 +185,7 @@ export default function ProductForm({ title, id, product }) {
               placeholder="Image"
               onChange={(e) => changeValueFile(e)}
             />
-            {preview.result ? (
-              <img src={preview.result} className="w-48 h-48 mt-4" />
-            ) : (
-              product && (
-                <img src={product.imageURL} className="w-48 h-48 mt-4" />
-              )
-            )}
+             {preview && <img src={preview} className="w-48 h-48 mt-4" />}
           </div>
 
           <div>
