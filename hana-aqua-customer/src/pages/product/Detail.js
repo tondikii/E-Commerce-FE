@@ -4,7 +4,6 @@ import apiInstance from "../../configs/api";
 import Loading from "../../components/notif/Loading";
 import { rupiah } from "../../helpers/currencyFormatter";
 import WhatsAppImage from "../../assets/whatsapp.png"
-console.log({WhatsAppImage})
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -15,11 +14,10 @@ export default function ProductDetail() {
     apiInstance
       .get(`/products/get/${id}`)
       .then(({ data }) => {
-        console.log(data, "<<<<<<");
         setProduct(data);
       })
       .catch((err) => {
-        console.log({ err });
+        console.error({ err });
       })
       .finally((res) => {
         setLoading(false);

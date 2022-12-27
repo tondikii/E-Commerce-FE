@@ -4,7 +4,6 @@ import apiInstance from "../../configs/api";
 import ProductCard from "../../components/cards/Product";
 import { useLocation, useParams } from "react-router-dom";
 import InvalidProductPage from "../errors/InvalidProduct";
-import Footer from "../../components/navigator/Footer";
 
 
 export default function HomePage() {
@@ -16,11 +15,6 @@ export default function HomePage() {
   const fetchByFilter = () => {
     return new Promise((resolve, reject) => {
       apiInstance
-        // .get(
-        //   `/products/get?category=${
-        //     pathname === "/" ? null : `${pathname === "/tanks" ? 1 : 2}`
-        //   }`
-        // )
         .get(`/products/get?${query}`)
         .then(({ data }) => {
           resolve(data);
@@ -33,21 +27,19 @@ export default function HomePage() {
     apiInstance
       .get("/products/get")
       .then(({ data }) => {
-        console.log({ data });
         setData(data.rows);
       })
-      .catch((err) => console.log({ err }));
+      .catch((err) => console.error({ err }));
   }, []);
 
   useEffect(() => {
     setLoading(true);
     fetchByFilter()
       .then((data) => {
-        console.log({ data });
         setData(data.rows);
       })
       .catch((err) => {
-        console.log({ err });
+        console.error({ err });
       })
       .finally((res) => setLoading(false));
   }, [pathname]);
@@ -73,6 +65,3 @@ export default function HomePage() {
     </Fragment>
   );
 }
-
-{/* <div className="flex flex-1 flex-col min-h-screen justify-between">
-    </div> */}

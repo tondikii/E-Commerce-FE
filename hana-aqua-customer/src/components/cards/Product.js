@@ -1,5 +1,5 @@
 import { rupiah } from "../../helpers/currencyFormatter";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 export default function ProductCard({ item }) {
   const navigate = useNavigate();
   return (

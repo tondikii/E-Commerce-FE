@@ -8,7 +8,6 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 const Navbar = () => {
   const { query } = useParams();
   const { pathname } = useLocation();
-  console.log({ pathname });
   const navigate = useNavigate();
   const queryRef = useRef(null); // Reference to the input;
   const isSearched = query?.split("&").find((el) => el[0] === "s") || undefined;
@@ -60,9 +59,7 @@ const Navbar = () => {
 
   const onSearch = async (e) => {
     await e.preventDefault();
-    console.log("SEARCHING");
     if (query) {
-      console.log("ADA QUERY");
       const newQuery = query
         .split("&")
         .filter((el) => el[0] !== "s")
@@ -71,7 +68,6 @@ const Navbar = () => {
         `/${newQuery + `${newQuery.length > 0 ? "&" : ""}search=${searchForm}`}`
       );
     } else {
-      console.log("TIDAK ADA QUERY");
       navigate(`/search=${searchForm}`);
     }
   };
