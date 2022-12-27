@@ -1,8 +1,7 @@
 import axios from "axios"
 
 const instance = axios.create({
-  // baseURL: "http://localhost:3000/api/" //LOCAL
-  baseURL: "https://hana-aqua.herokuapp.com/api/"
+  baseURL: "https://hana-aqua-service-production.up.railway.app/api"
 });
 
 export default instance
