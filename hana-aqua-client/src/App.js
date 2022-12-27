@@ -1,5 +1,4 @@
 import "./App.css";
-// import { StrictMode } from "react";
 import {
   BrowserRouter as Router,
   Routes,

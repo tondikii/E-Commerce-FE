@@ -144,14 +144,6 @@ export default function RegisterPage() {
                   <p className="text-sm text-yellow-400 font-medium">{err}</p>
                 </div>
               ))}
-            {/* {errors.email  === 1 && (
-              <div className="flex flex-row items-center space-x-1 w-screen my-1">
-                <ExclamationCircleIcon className="h-5 w-5 text-yellow-400 font-bold" />
-                <p className="text-sm text-yellow-400 font-medium">
-                  Email already exist
-                </p>
-              </div>
-            )} */}
           </div>
           <div>
             <label
@@ -176,14 +168,6 @@ export default function RegisterPage() {
                   <p className="text-sm text-yellow-400 font-medium">{err}</p>
                 </div>
               ))}
-            {/* {errors.password === 1 && (
-              <div className="flex flex-row items-center space-x-1 w-screen my-1">
-                <ExclamationCircleIcon className="h-5 w-5 text-yellow-400 font-bold" />
-                <p className="text-sm text-yellow-400 font-medium">
-                  Password should be more than equal 6 characters
-                </p>
-              </div>
-            )} */}
           </div>
           <div>
             <label
@@ -208,14 +192,6 @@ export default function RegisterPage() {
                   <p className="text-sm text-yellow-400 font-medium">{err}</p>
                 </div>
               ))}
-            {/* {errors.phoneNumber === 1 && (
-              <div className="flex flex-row items-center space-x-1 w-screen my-1">
-                <ExclamationCircleIcon className="h-5 w-5 text-yellow-400 font-bold" />
-                <p className="text-sm text-yellow-400 font-medium">
-                  Phone Number cannot be empty
-                </p>
-              </div>
-            )} */}
           </div>
         </div>
         <button

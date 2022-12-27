@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-// import { setJobs, setLoading, setError } from "../store/";
 import {
   setProducts,
   setLoading,
@@ -21,7 +20,6 @@ export default function useFetchProducts() {
       })
       .then(({ data }) => {
         dispatch(setTableCount(data.count));
-        // if(data.rows.length < 1) throw
         dispatch(setProducts(data.rows));
       })
       .catch(({ response }) => {

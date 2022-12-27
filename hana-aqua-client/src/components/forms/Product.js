@@ -3,7 +3,7 @@ import { Editor } from "react-draft-wysiwyg";
 import { EditorState, convertToRaw, ContentState } from "draft-js";
 import draftToHtml from "draftjs-to-html";
 import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import apiInstance from "../../configs/api";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -14,10 +14,9 @@ import { currencyMask, formatNumber } from "../../helpers/mask";
 export default function ProductForm({ title, id, product }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  console.log({ product });
   const [productForm, setProductForm] = useState({
     name: product ? product.name : "",
-    image: "",
+    image: product ? product.imageURL : "",
     description: EditorState.createEmpty(),
     html: product ? product.description : "",
     price: product ? formatNumber(product.price.toString()) : "",
@@ -34,6 +33,7 @@ export default function ProductForm({ title, id, product }) {
       );
       const editorState = EditorState.createWithContent(contentState);
       setProductForm({ ...productForm, description: editorState });
+      setPreview(product.imageURL)
     }
   }, []);
 
@@ -41,7 +41,6 @@ export default function ProductForm({ title, id, product }) {
     if (
       productForm.name &&
       productForm.html &&
-      // productForm.stock > 0 &&
       Number(productForm.price.split(",").join("")) > 0 &&
       productForm.CategoryId
     ) {
@@ -90,7 +89,6 @@ export default function ProductForm({ title, id, product }) {
       formData.append("name", productForm.name);
       if (productForm.image) formData.append("file", productForm.image);
       formData.append("description", productForm.html);
-      // formData.append("stock", productForm.stock);
       formData.append("price", Number(productForm.price.split(",").join("")));
       formData.append("CategoryId", productForm.CategoryId);
       let data;
@@ -182,7 +180,6 @@ export default function ProductForm({ title, id, product }) {
               accept="image/png, image/jpg, image/jpeg"
               required
               className=" relative w-full px-3 py-2 border-2 border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:border-blue-900 "
-              placeholder="Image"
               onChange={(e) => changeValueFile(e)}
             />
              {preview && <img src={preview} className="w-48 h-48 mt-4" />}
@@ -244,25 +241,6 @@ export default function ProductForm({ title, id, product }) {
               </option>
             </select>
           </div>
-
-          {/* <div>
-            <label
-              htmlFor="stock"
-              className=" text-lg font-semibold text-blue-900"
-            >
-              Stock
-            </label>
-            <input
-              id="stock"
-              name="stock"
-              type="number"
-              required
-              className=" relative w-full px-3 py-2 border-2 border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:border-blue-900 "
-              placeholder="Stock"
-              defaultValue={productForm.stock}
-              onChange={(e) => changeValue(e)}
-            />
-          </div> */}
 
           <div>
             <label
