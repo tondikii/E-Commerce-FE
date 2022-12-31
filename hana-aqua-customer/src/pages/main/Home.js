@@ -2,35 +2,31 @@ import { Fragment, useState } from "react";
 import { useEffect } from "react";
 import apiInstance from "../../configs/api";
 import ProductCard from "../../components/cards/Product";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import InvalidProductPage from "../errors/InvalidProduct";
-
+import { useSelector } from "react-redux";
+import Loading from "../../components/notif/Loading";
 
 export default function HomePage() {
-  const { pathname } = useLocation();
+  const { category } = useSelector((state) => state.root);
   const { query } = useParams();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const fetchByFilter = () => {
+    const renderQueryCategory = () => {
+      if (!category) return "";
+      return `${query ? "&" : ""}category=${category}`;
+    };
     return new Promise((resolve, reject) => {
       apiInstance
-        .get(`/products/get?${query}`)
+        .get(`/products/get?${query || ""}${renderQueryCategory()}`)
         .then(({ data }) => {
           resolve(data);
         })
         .catch((err) => reject(err));
     });
   };
-
-  useEffect(() => {
-    apiInstance
-      .get("/products/get")
-      .then(({ data }) => {
-        setData(data.rows);
-      })
-      .catch((err) => console.error({ err }));
-  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -42,14 +38,11 @@ export default function HomePage() {
         console.error({ err });
       })
       .finally((res) => setLoading(false));
-  }, [pathname]);
+  }, [category, query]);
 
-  if (!data || loading)
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <h1 className="text-blue-900 text-5xl font-semibold">Loading...</h1>
-      </div>
-    );
+  if (!data || loading) {
+    return <Loading />;
+  }
 
   return (
     <Fragment>

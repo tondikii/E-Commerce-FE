@@ -1,11 +1,15 @@
 import { NavLink } from "react-router-dom";
-import Swal from "sweetalert2";
 import { Disclosure } from "@headlessui/react";
-import { Fragment, useEffect, useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { FilterIcon, XIcon, SearchIcon } from "@heroicons/react/outline";
-import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router";
+import {setCategory} from '../../store/reducers.js'
+import {useSelector, useDispatch} from "react-redux"
+
 
 const Navbar = () => {
+  const {category} = useSelector((state) => state.root);
+  const dispatch = useDispatch();
   const { query } = useParams();
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -14,6 +18,13 @@ const Navbar = () => {
   const [searchForm, setSearchForm] = useState(
     `${isSearched ? isSearched.split("=")[1] : ""}`
   );
+
+  useEffect(() => {
+    if(!isSearched){
+      setSearchForm('')
+    }
+  }, [isSearched])
+
   const navigation = [
     {
       name: "Tanks",
@@ -34,6 +45,7 @@ const Navbar = () => {
         query?.split("&").find((el) => el === "category=1") !== undefined
           ? true
           : false,
+      value: 1,
     },
     {
       name: "Ponds",
@@ -54,8 +66,15 @@ const Navbar = () => {
         query?.split("&").find((el) => el === "category=2") !== undefined
           ? true
           : false,
+      value: 2,
     },
   ];
+
+  const onNavigate = (e, value) => {
+    e.preventDefault();
+    navigate('/')
+    dispatch(setCategory(value))
+  }
 
   const onSearch = async (e) => {
     await e.preventDefault();
@@ -84,31 +103,30 @@ const Navbar = () => {
             <div className="flex flex-row justify-center items-center">
               <NavLink
                 to="/"
-                className={({ isActive }) =>
-                  isActive
-                    ? "bg-white text-blue-900  text-xs font-bold p-2 md:text-xl lg:text-2xl xl:text-3xl rounded-md"
+                className={!category ? "bg-white text-blue-900  text-xs font-bold p-2 md:text-xl lg:text-2xl xl:text-3xl rounded-md"
                     : "text-white text-xs font-bold p-2 md:text-xl lg:text-2xl xl:text-3xl"
                 }
+                onClick={(e) => 
+                  onNavigate(e, '')
+                  }
               >
-                Hana Aqua Customer
+                Hana Aqua
               </NavLink>
-              {pathname[1] !== "p" && (
                 <div className="flex flex-row justify-evenly items-center text-white">
                   {navigation.map((item) => (
-                    <NavLink
+                    <span
                       key={item.name}
-                      to={item.href}
                       className={
-                        item.current
-                          ? "py-2 px-4 bg-white text-blue-900 xl:text-2xl md:text-lg lg:text-xl hidden sm:flex font-bold rounded-md"
-                          : "py-2 px-4 xl:text-2xl md:text-lg lg:text-xl hidden sm:flex font-bold"
+                        item.value === category
+                          ? "py-2 px-4 bg-white text-blue-900 xl:text-2xl md:text-lg lg:text-xl hidden sm:flex font-bold rounded-md cursor-pointer"
+                          : "py-2 px-4 xl:text-2xl md:text-lg lg:text-xl hidden sm:flex font-bold cursor-pointer"
                       }
+                      onClick={(e) => onNavigate(e, item.value)}
                     >
                       {item.name}
-                    </NavLink>
+                    </span>
                   ))}
                 </div>
-              )}
             </div>
             {pathname[1] !== "p" && (
               <form onSubmit={onSearch} className="flex flex-row">
@@ -148,14 +166,14 @@ const Navbar = () => {
                 <Disclosure.Button
                   key={item.name}
                   as="a"
-                  href={item.href}
+                  onClick={(e) => onNavigate(e, item.value)}
                   className={classNames(
-                    item.current
+                    item.value === category
                       ? "bg-white text-blue-900"
                       : "text-gray-300 hover:bg-gray-700 hover:text-white",
                     "block px-3 py-2 rounded-md text-base font-medium"
                   )}
-                  aria-current={item.current ? "page" : undefined}
+                  aria-current={item.value === category ? "page" : undefined}
                 >
                   {item.name}
                 </Disclosure.Button>
