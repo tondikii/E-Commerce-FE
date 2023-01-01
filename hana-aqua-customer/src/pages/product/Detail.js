@@ -34,10 +34,10 @@ export default function ProductDetail() {
       />
       <div className="flex flex-col space-y-1">
         <h3 className="text-xl text-gray-500 font-semibold">
-          {product.Category == 1 ? "Akuarium" : "Kolam"}
+          Category: {product.Category == 1 ? "Tanks" : "Ponds"}
         </h3>
-        <h1 className="text-2xl text-gray-900 font-bold">{product.name}</h1>
-        <h2 className="text-2xl text-gray-900 font-bold">{`RP ${rupiah(
+        <h1 className="text-2xl text-gray-900 font-bold text-center">{product.name}</h1>
+        <h2 className="text-2xl text-gray-900 font-bold text-center">{`RP ${rupiah(
           product.price
         )}`}</h2>
       </div>
@@ -47,8 +47,9 @@ export default function ProductDetail() {
       </div>
       <a
       href={`https://api.whatsapp.com/send?phone=6285920685311&text=Saya%20tertarik%20dengan%20produk%20${product.name}`}
+      className="d-flex flex justify-center"
     >
-      <button className="bg-green-700 flex flex-row w-96 self-center px-4 py-2 rounded-md items-center justify-center space-x-2">
+      <button className="bg-green-700 flex flex-row w-full self-center px-4 py-2 rounded-md items-center justify-center space-x-2">
         <img className="h-6 w-6" src={WhatsAppImage} />
         <p className="text-white text-md font-medium">Beli</p>
       </button>

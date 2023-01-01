@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <div className="flex flex-col md:flex-row relative bg-blue-900 bottom-0 w-full justify-start items-center mt-4 md:h-48 lg:h-52 h-32 py-2">
       <div className="w-full md:w-1/2">
-        <h1 className="text-white text-2xl md:text-6xl lg:text-6xl font-bold text-center">
+        <h1 className="text-white text-2xl md:text-4xl lg:text-6xl font-bold text-center">
           Hana Aqua
         </h1>
       </div>
