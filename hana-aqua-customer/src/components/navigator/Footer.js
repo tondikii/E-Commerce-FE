@@ -13,7 +13,7 @@ export default function Footer() {
           <h2 className="text-white hidden md:flex text-md md:font-xl lg:text-2xl font-medium md:font-semibold">
             Nomor Telepon
           </h2>
-          <a href={"https://api.whatsapp.com/send?phone=6285920685311&text=Hubungi%20admin"} className="flex flex-row space-x-2 md:absolute md:left-3/4">
+          <a href={"https://api.whatsapp.com/send?phone=6285920685311&text=Hubungi%20admin"} target="_blank" className="flex flex-row space-x-2 md:absolute md:left-3/4" rel="noreferrer">
             <PhoneIcon className="text-white h-4 w-4 text-md md:font-xl lg:text-2xl font-medium md:font-semibold lg:w-8 lg:h-8" />
             <p className="text-white text-sm md:font-xl lg:text-2xl font-medium  md:font-semibold">
               085920685311
@@ -26,10 +26,10 @@ export default function Footer() {
           </h2>
           <div className="flex flex-row space-x-2 md:absolute md:left-3/4 ">
             <OfficeBuildingIcon className="text-white h-4 w-4 text-md font-medium lg:text-2xl lg:w-8 lg:h-8" />
-            <p className="text-white text-sm font-medium lg:text-2xl">
+            <a href="https://maps.app.goo.gl/Zqt3qAHKtp5ogFaz7" target="_blank" className="text-white text-sm font-medium lg:text-2xl" rel="noreferrer">
               {" "}
               Jl. Cibubur, RT.9/RW.1, Jakarta Timur.
-            </p>
+            </a>
           </div>
         </div>
       </div>

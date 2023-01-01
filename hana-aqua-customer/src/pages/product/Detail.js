@@ -47,7 +47,8 @@ export default function ProductDetail() {
       </div>
       <a
       href={`https://api.whatsapp.com/send?phone=6285920685311&text=Saya%20tertarik%20dengan%20produk%20${product.name}`}
-      className="d-flex flex justify-center"
+      target="_blank"
+      className="d-flex flex justify-center" rel="noreferrer"
     >
       <button className="bg-green-700 flex flex-row w-full self-center px-4 py-2 rounded-md items-center justify-center space-x-2">
         <img className="h-6 w-6" src={WhatsAppImage} />
