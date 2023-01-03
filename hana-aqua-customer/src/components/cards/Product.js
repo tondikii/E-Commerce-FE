@@ -5,7 +5,7 @@ export default function ProductCard({item}) {
   return (
     <div
       className="flex flex-col bg-white p-4 rounded-md shadow-md justify-center hover:shadow-2xl cursor-pointer"
-      onClick={() => navigate(`/product/${item.id}`, {replace: true})}
+      onClick={() => navigate(`/product/${item.id}`)}
     >
       <img
         className="w-40 h-40 lg:w-52 lg:h-52 rounded-md cursor-pointer lg:self-center"
