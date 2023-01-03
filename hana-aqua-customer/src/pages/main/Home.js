@@ -31,7 +31,9 @@ export default function HomePage() {
       return `${query ? "&" : ""}category=${category}`;
     };
     const renderQueryLimit = () => {
-      return `${query ? "&" : ""}limit=${getLimitByWindowDimensions()}`;
+      return `${
+        query || category ? "&" : ""
+      }limit=${getLimitByWindowDimensions()}`;
     };
     return new Promise((resolve, reject) => {
       apiInstance
@@ -46,27 +48,6 @@ export default function HomePage() {
         .catch((err) => reject(err));
     });
   };
-
-  useEffect(() => {
-    if (page > 1) setLoadingScroll(true);
-    else setLoading(true);
-    fetchByFilter()
-      .then((response) => {
-        if (!response.rows.length) setUnavailable(true);
-        setData((prevState) => {
-          if (page === 1) return response.rows;
-          return [...prevState, ...response.rows];
-        });
-      })
-      .catch((err) => {
-        console.error({err});
-      })
-      .finally((res) => {
-        if (page > 1) setLoadingScroll(false);
-        else setLoading(false);
-        setStopScroll(false);
-      });
-  }, [category, query, page]);
 
   const scrolling = useCallback(() => {
     window.onscroll = () => {
@@ -89,6 +70,40 @@ export default function HomePage() {
   useEffect(() => {
     scrolling();
   }, [stopScroll, unavailable]);
+
+  useEffect(() => {
+    if (page > 1) setLoadingScroll(true);
+    else setLoading(true);
+    fetchByFilter()
+      .then((response) => {
+        if (!response.rows.length) setUnavailable(true);
+        else setUnavailable(false);
+        setData((prevState) => {
+          if (page === 1) return response.rows;
+          return [...prevState, ...response.rows];
+        });
+      })
+      .catch((err) => {
+        console.error({err});
+      })
+      .finally((res) => {
+        if (page > 1) setLoadingScroll(false);
+        else setLoading(false);
+        setStopScroll(false);
+      });
+  }, [category, query, page]);
+
+  useEffect(() => {
+    setPage(1);
+    setUnavailable(false);
+    setDisplayUnavailable(false);
+  }, [query]);
+
+  useEffect(() => {
+    setPage(1);
+    setUnavailable(false);
+    setDisplayUnavailable(false);
+  }, [category]);
 
   if (loading) {
     return <Loading />;
