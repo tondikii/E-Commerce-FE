@@ -2,14 +2,16 @@ import {Fragment, useCallback, useState} from "react";
 import {useEffect} from "react";
 import apiInstance from "../../configs/api";
 import ProductCard from "../../components/cards/Product";
-import {useParams} from "react-router-dom";
+import {useParams, useLocation} from "react-router";
 import InvalidProductPage from "../errors/InvalidProduct";
 import {useSelector} from "react-redux";
 import Loading from "../../components/notif/Loading";
+import {Helmet} from "react-helmet";
 
 export default function HomePage() {
   const {category} = useSelector((state) => state.root);
   const {query} = useParams();
+  const {pathname} = useLocation();
   const [data, setData] = useState([]);
   const [stopScroll, setStopScroll] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -111,6 +113,18 @@ export default function HomePage() {
 
   return (
     <Fragment>
+      <Helmet>
+        <title>Catalog Hana Aqua</title>
+        <meta
+          charSet="utf-8"
+          name="description"
+          content="Catalog Hana Aqua, Buy and get info of all your favorite aquatic fish at Hana Aqua"
+        />
+        <link
+          rel="canonical"
+          href={`https://hana-aqua-customer.web.app${pathname}`}
+        />
+      </Helmet>
       {data.length > 0 ? (
         <div>
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4 xl:grid-cols-6 p-4">
