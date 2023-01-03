@@ -1,29 +1,28 @@
-import { NavLink } from "react-router-dom";
-import { Disclosure } from "@headlessui/react";
-import { useState, useRef, useEffect } from "react";
-import { FilterIcon, XIcon, SearchIcon } from "@heroicons/react/outline";
-import { useParams, useNavigate, useLocation } from "react-router";
-import {setCategory} from '../../store/reducers.js'
-import {useSelector, useDispatch} from "react-redux"
-
+import {NavLink} from "react-router-dom";
+import {Disclosure} from "@headlessui/react";
+import {useState, useRef, useEffect} from "react";
+import {FilterIcon, XIcon, SearchIcon} from "@heroicons/react/outline";
+import {useParams, useNavigate, useLocation} from "react-router";
+import {setCategory} from "../../store/reducers.js";
+import {useSelector, useDispatch} from "react-redux";
 
 const Navbar = () => {
   const {category} = useSelector((state) => state.root);
   const dispatch = useDispatch();
-  const { query } = useParams();
-  const { pathname } = useLocation();
+  const {query} = useParams();
+  const {pathname} = useLocation();
   const navigate = useNavigate();
   const queryRef = useRef(null); // Reference to the input;
   const isSearched = query?.split("&").find((el) => el[0] === "s") || undefined;
-  const [searchForm, setSearchForm] = useState(
-    `${isSearched ? isSearched.split("=")[1] : ""}`
-  );
+  const [searchForm, setSearchForm] = useState("");
 
   useEffect(() => {
-    if(!isSearched){
-      setSearchForm('')
+    if (!isSearched) {
+      setSearchForm("");
+    } else {
+      setSearchForm(isSearched.split("=")[1]);
     }
-  }, [isSearched])
+  }, [isSearched]);
 
   const navigation = [
     {
@@ -72,9 +71,9 @@ const Navbar = () => {
 
   const onNavigate = (e, value) => {
     e.preventDefault();
-    navigate('/')
-    dispatch(setCategory(value))
-  }
+    navigate("/");
+    dispatch(setCategory(value));
+  };
 
   const onSearch = async (e) => {
     await e.preventDefault();
@@ -97,36 +96,36 @@ const Navbar = () => {
 
   return (
     <Disclosure as="nav" className="bg-blue-900 sticky top-0">
-      {({ open }) => (
+      {({open}) => (
         <div className="space-x-2 items-center">
           <nav className="p-2 md:p-4 flex space-x-2 flex-row justify-between items-center md:px-4 lg:px-12">
             <div className="flex flex-row justify-center items-center">
               <NavLink
                 to="/"
-                className={!category ? "bg-white text-blue-900  text-xs font-bold p-2 md:text-xl lg:text-2xl xl:text-3xl rounded-md"
+                className={
+                  !category
+                    ? "bg-white text-blue-900  text-xs font-bold p-2 md:text-xl lg:text-2xl xl:text-3xl rounded-md"
                     : "text-white text-xs font-bold p-2 md:text-xl lg:text-2xl xl:text-3xl"
                 }
-                onClick={(e) => 
-                  onNavigate(e, '')
-                  }
+                onClick={(e) => onNavigate(e, "")}
               >
                 Hana Aqua
               </NavLink>
-                <div className="flex flex-row justify-evenly items-center text-white">
-                  {navigation.map((item) => (
-                    <span
-                      key={item.name}
-                      className={
-                        item.value === category
-                          ? "py-2 px-4 bg-white text-blue-900 xl:text-2xl md:text-lg lg:text-xl hidden sm:flex font-bold rounded-md cursor-pointer"
-                          : "py-2 px-4 xl:text-2xl md:text-lg lg:text-xl hidden sm:flex font-bold cursor-pointer"
-                      }
-                      onClick={(e) => onNavigate(e, item.value)}
-                    >
-                      {item.name}
-                    </span>
-                  ))}
-                </div>
+              <div className="flex flex-row justify-evenly items-center text-white">
+                {navigation.map((item) => (
+                  <span
+                    key={item.name}
+                    className={
+                      item.value === category
+                        ? "py-2 px-4 bg-white text-blue-900 xl:text-2xl md:text-lg lg:text-xl hidden sm:flex font-bold rounded-md cursor-pointer"
+                        : "py-2 px-4 xl:text-2xl md:text-lg lg:text-xl hidden sm:flex font-bold cursor-pointer"
+                    }
+                    onClick={(e) => onNavigate(e, item.value)}
+                  >
+                    {item.name}
+                  </span>
+                ))}
+              </div>
             </div>
             {pathname[1] !== "p" && (
               <form onSubmit={onSearch} className="flex flex-row">
