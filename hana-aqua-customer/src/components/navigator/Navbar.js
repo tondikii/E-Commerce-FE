@@ -5,6 +5,7 @@ import {FilterIcon, XIcon, SearchIcon} from "@heroicons/react/outline";
 import {useParams, useNavigate, useLocation} from "react-router";
 import {setCategory} from "../../store/reducers.js";
 import {useSelector, useDispatch} from "react-redux";
+import "../styles.css";
 
 const Navbar = () => {
   const {category} = useSelector((state) => state.root);
@@ -104,8 +105,8 @@ const Navbar = () => {
                 to="/"
                 className={
                   !category
-                    ? "bg-white text-blue-900  text-xs font-bold p-2 md:text-xl lg:text-2xl xl:text-3xl rounded-md"
-                    : "text-white text-xs font-bold p-2 md:text-xl lg:text-2xl xl:text-3xl"
+                    ? "bg-white text-blue-900  text-xs font-bold p-2 md:text-xl lg:text-2xl xl:text-3xl rounded-md font-logo"
+                    : "text-white text-xs font-bold p-2 md:text-xl lg:text-2xl xl:text-3xl font-logo"
                 }
                 onClick={(e) => onNavigate(e, "")}
               >

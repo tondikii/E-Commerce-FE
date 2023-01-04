@@ -1,10 +1,11 @@
-import { Link, useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import apiInstance from "../../configs/api";
-import { useState } from "react";
+import {useState} from "react";
 import Swal from "sweetalert2";
-import { ExclamationCircleIcon } from "@heroicons/react/outline";
-import { userLogin } from "../../store/reducers/root";
-import { useDispatch } from "react-redux";
+import {ExclamationCircleIcon} from "@heroicons/react/outline";
+import {userLogin} from "../../store/reducers/root";
+import {useDispatch} from "react-redux";
+import "../styles.css";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -22,17 +23,17 @@ export default function LoginPage() {
       email: "",
       password: "",
     });
-    const { name, value } = e.target;
-    setLoginForm({ ...loginForm, [name]: value });
+    const {name, value} = e.target;
+    setLoginForm({...loginForm, [name]: value});
   };
   const onLogin = async (e) => {
     try {
       e.preventDefault();
-      const { data: login } = await apiInstance.post("/users/login", {
+      const {data: login} = await apiInstance.post("/users/login", {
         email: loginForm.email,
         password: loginForm.password,
       });
-      if(login.role === "admin"){
+      if (login.role === "admin") {
         await dispatch(userLogin(login));
         navigate("/");
         Swal.fire({
@@ -40,7 +41,7 @@ export default function LoginPage() {
           icon: "success",
         });
       } else {
-        setErrors({ ...errors, email: "Invalid Email" });
+        setErrors({...errors, email: "Invalid Email"});
       }
     } catch (err) {
       if (err?.response?.data?.error) {
@@ -54,18 +55,18 @@ export default function LoginPage() {
         } else if (
           error.split(" ").find((el) => el.toLowerCase() === "email")
         ) {
-          setErrors({ ...errors, email: error });
+          setErrors({...errors, email: error});
         } else if (
           error.split(" ").find((el) => el.toLowerCase() === "password")
         ) {
-          setErrors({ ...errors, password: error });
+          setErrors({...errors, password: error});
         }
       }
     }
   };
   return (
     <div className="flex flex-col bg-blue-900 justify-center items-center h-screen">
-      <h1 className=" text-5xl font-semibold text-white font-mono">
+      <h1 className=" text-5xl font-semibold text-white font-logo">
         Login to Hana Aqua
       </h1>
       <form className="mt-4 space-y-6">

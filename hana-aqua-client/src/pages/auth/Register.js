@@ -1,10 +1,11 @@
-import { Link, useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import apiInstance from "../../configs/api";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { userLogin } from "../../store/reducers/root";
-import { ExclamationCircleIcon } from "@heroicons/react/outline";
+import {useState} from "react";
+import {useDispatch} from "react-redux";
+import {userLogin} from "../../store/reducers/root";
+import {ExclamationCircleIcon} from "@heroicons/react/outline";
 import Swal from "sweetalert2";
+import "../styles.css";
 
 export default function RegisterPage() {
   const dispatch = useDispatch();
@@ -29,16 +30,16 @@ export default function RegisterPage() {
       password: [],
       phoneNumber: [],
     });
-    const { name, value } = e.target;
-    setRegisterForm({ ...registerForm, [name]: value });
+    const {name, value} = e.target;
+    setRegisterForm({...registerForm, [name]: value});
   };
 
   const onRegister = async (e) => {
     try {
       e.preventDefault();
-      const { data } = await apiInstance.post("/users/register", registerForm);
+      const {data} = await apiInstance.post("/users/register", registerForm);
       if (data?.user) {
-        const { data: login } = await apiInstance.post("/users/login", {
+        const {data: login} = await apiInstance.post("/users/login", {
           email: registerForm.email,
           password: registerForm.password,
         });
@@ -58,21 +59,21 @@ export default function RegisterPage() {
             undefined
           ) {
             setErrors((prevState) => {
-              return { ...prevState, password: [...errors.password, each] };
+              return {...prevState, password: [...errors.password, each]};
             });
           } else if (
             each.split(" ").find((el) => el.toLowerCase() === "name") !==
             undefined
           ) {
             setErrors((prevState) => {
-              return { ...prevState, fullName: [...errors.fullName, each] };
+              return {...prevState, fullName: [...errors.fullName, each]};
             });
           } else if (
             each.split(" ").find((el) => el.toLowerCase() === "email") !==
             undefined
           ) {
             setErrors((prevState) => {
-              return { ...prevState, email: [...errors.email, each] };
+              return {...prevState, email: [...errors.email, each]};
             });
           } else if (
             each.split(" ").find((el) => el.toLowerCase() === "number") !==
@@ -92,7 +93,7 @@ export default function RegisterPage() {
 
   return (
     <div className="flex flex-col bg-blue-900 justify-center items-center h-screen">
-      <h1 className=" text-4xl font-semibold text-white font-mono">
+      <h1 className=" text-4xl font-semibold text-white font-logo">
         Register to Hana Aqua
       </h1>
       <form className="mt-4 space-y-6">

@@ -1,9 +1,10 @@
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import {Link, useNavigate, useLocation} from "react-router-dom";
 import Swal from "sweetalert2";
-import { LogoutIcon, ShoppingBagIcon } from "@heroicons/react/outline";
+import {LogoutIcon, ShoppingBagIcon} from "@heroicons/react/outline";
 import UilStore from "@iconscout/react-unicons/icons/uil-store";
-import { useDispatch } from "react-redux";
-import { userLogout } from "../../store/reducers/root";
+import {useDispatch} from "react-redux";
+import {userLogout} from "../../store/reducers/root";
+import "../styles.css";
 
 export default function Sidebar() {
   const dispatch = useDispatch();
@@ -42,7 +43,7 @@ export default function Sidebar() {
           <Link to="/">
             <div className="flex flex-row items-center space-x-1 justify-start px-4 py-2">
               <UilStore color="white" size={32} />
-              <p className=" text-2xl text-white font-bold font-sans">
+              <p className=" text-2xl text-white font-bold font-logo">
                 Hana Aqua
               </p>
             </div>
