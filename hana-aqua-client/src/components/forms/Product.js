@@ -1,17 +1,17 @@
 import Swal from "sweetalert2";
-import { Editor } from "react-draft-wysiwyg";
-import { EditorState, convertToRaw, ContentState } from "draft-js";
+import {Editor} from "react-draft-wysiwyg";
+import {EditorState, convertToRaw, ContentState} from "draft-js";
 import draftToHtml from "draftjs-to-html";
 import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import apiInstance from "../../configs/api";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setLoading, setError } from "../../store/reducers/root";
+import {useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {setLoading, setError} from "../../store/reducers/root";
 import htmlToDraft from "html-to-draftjs";
-import { currencyMask, formatNumber } from "../../helpers/mask";
+import {currencyMask, formatNumber} from "../../helpers/mask";
 
-export default function ProductForm({ title, id, product }) {
+export default function ProductForm({title, id, product}) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [productForm, setProductForm] = useState({
@@ -32,8 +32,8 @@ export default function ProductForm({ title, id, product }) {
         contentBlock.contentBlocks
       );
       const editorState = EditorState.createWithContent(contentState);
-      setProductForm({ ...productForm, description: editorState });
-      setPreview(product.imageURL)
+      setProductForm({...productForm, description: editorState});
+      setPreview(product.imageURL);
     }
   }, []);
 
@@ -55,25 +55,25 @@ export default function ProductForm({ title, id, product }) {
   }, [productForm]);
 
   const changeValue = (e) => {
-    const { name, value } = e.target;
-    setProductForm({ ...productForm, [name]: value });
+    const {name, value} = e.target;
+    setProductForm({...productForm, [name]: value});
   };
 
   const changeValueFile = (e) => {
-      const maxSize = 1 * 1024 * 1024;
-      const file = e.target.files[0];
-      if (file.size > maxSize) {
-        Swal.fire({
-          icon: "error",
-          title: "File Size",
-          text: "Maximum file size is 1mb!",
-        });
-      } else {
-        const url = URL.createObjectURL(file)
-        setPreview(url);
-        setProductForm({ ...productForm, [e.target.name]: file });
-      }
+    const maxSize = 0.255 * 1024 * 1024;
+    const file = e.target.files[0];
+    if (file.size > maxSize) {
+      Swal.fire({
+        icon: "error",
+        title: "File Size",
+        text: "Maximum file size 255kb!",
+      });
+    } else {
+      const url = URL.createObjectURL(file);
+      setPreview(url);
+      setProductForm({...productForm, [e.target.name]: file});
     }
+  };
   const descriptionChange = (editorState) => {
     setProductForm((prev) => ({
       ...prev,
@@ -93,21 +93,21 @@ export default function ProductForm({ title, id, product }) {
       formData.append("CategoryId", productForm.CategoryId);
       let data;
       if (id) {
-        const { data: update } = await apiInstance.put(
+        const {data: update} = await apiInstance.put(
           `/products/update/${id}`,
           formData,
           {
-            headers: { access_token: localStorage.access_token },
+            headers: {access_token: localStorage.access_token},
           }
         );
         data = update;
       }
       if (!id) {
-        const { data: create } = await apiInstance.post(
+        const {data: create} = await apiInstance.post(
           "/products/create",
           formData,
           {
-            headers: { access_token: localStorage.access_token },
+            headers: {access_token: localStorage.access_token},
           }
         );
         data = create;
@@ -182,7 +182,7 @@ export default function ProductForm({ title, id, product }) {
               className=" relative w-full px-3 py-2 border-2 border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:border-blue-900 "
               onChange={(e) => changeValueFile(e)}
             />
-             {preview && <img src={preview} className="w-48 h-48 mt-4" />}
+            {preview && <img src={preview} className="w-48 h-48 mt-4" />}
           </div>
 
           <div>
@@ -269,7 +269,7 @@ export default function ProductForm({ title, id, product }) {
         <button
           type="submit"
           className="relative w-full flex justify-center py-2 px-4 border-transparent text-sm font-medium rounded-md border-white bg-blue-900 text-white text-center mt-8"
-          style={{ opacity: completed ? 1 : 0.5 }}
+          style={{opacity: completed ? 1 : 0.5}}
           onClick={onSubmit}
         >
           Submit
