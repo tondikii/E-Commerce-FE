@@ -2,12 +2,10 @@ import Sidebar from "../../components/navigators/Sidebar";
 import ProductTable from "../../components/tables/Product";
 import AddButton from "../../components/buttons/Add";
 import { useNavigate } from "react-router-dom";
-import useFetchProducts from "../../hooks/useFetchProducts";
 import Layout from "../../components/layout/Wrapper";
 
 export default function HomePage() {
   const navigate = useNavigate();
-  const products = useFetchProducts();
 
   return (
     <div className="flex flex-row space-x-4">
@@ -21,7 +19,7 @@ export default function HomePage() {
           >
             <AddButton logoSize={24} />
           </div>
-          <ProductTable data={products} />
+          <ProductTable/>
         </div>
       </Layout>
     </div>

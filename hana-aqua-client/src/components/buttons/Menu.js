@@ -4,34 +4,17 @@ import { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import apiInstance from "../../configs/api";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   setError,
   setLoading,
-  setProducts,
-  setTableCount
 } from "../../store/reducers/root";
 
-export default function MenuButton({ id }) {
-  const { table } = useSelector((state) => state.rootReducer);
+const  MenuButton = ({ id,  refetchData = () => {}}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-
-  const getData = () => {
-    dispatch(setLoading(true));
-    apiInstance
-      .get(`/products/get?limit=${table.limit}&page=${table.page}`, {
-        headers: { access_token: localStorage.access_token },
-      })
-      .then(({ data }) => {
-        dispatch(setTableCount(data.count));
-        dispatch(setProducts(data.rows));
-      })
-      .catch(({ response }) => dispatch(setError("Error Fetching Products")))
-      .finally((res) => dispatch(setLoading(false)));
-  };
 
   const onDelete = async () => {
     try {
@@ -46,7 +29,7 @@ export default function MenuButton({ id }) {
           headers: { access_token: localStorage.access_token },
         });
         if (data.message) {
-          getData();
+          refetchData()
           const Toast = Swal.mixin({
             toast: true,
             position: "top-end",
@@ -72,7 +55,7 @@ export default function MenuButton({ id }) {
   };
 
   return (
-    <Fragment>
+    <>
       <button onClick={(event) => setAnchorEl(event.currentTarget)}>
         <DotsVerticalIcon className="w-5 h-5 text-gray-600" role="button" />
       </button>
@@ -96,6 +79,8 @@ export default function MenuButton({ id }) {
         </MenuItem>
         <MenuItem onClick={onDelete}>Delete</MenuItem>
       </Menu>
-    </Fragment>
+    </>
   );
 }
+
+export default MenuButton

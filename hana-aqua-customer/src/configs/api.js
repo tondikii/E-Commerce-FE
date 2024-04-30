@@ -1,7 +1,7 @@
-import axios from "axios"
+import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://hana-aqua-service-production.up.railway.app/api"
+  baseURL: "https://hana-aqua.vercel.app",
 });
 
-export default instance
+export default instance;

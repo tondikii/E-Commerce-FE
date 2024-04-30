@@ -3,7 +3,7 @@ import {Editor} from "react-draft-wysiwyg";
 import {EditorState, convertToRaw, ContentState} from "draft-js";
 import draftToHtml from "draftjs-to-html";
 import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import apiInstance from "../../configs/api";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
@@ -12,6 +12,7 @@ import htmlToDraft from "html-to-draftjs";
 import {currencyMask, formatNumber} from "../../helpers/mask";
 
 export default function ProductForm({title, id, product}) {
+  const imageInputRef = useRef(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [productForm, setProductForm] = useState({
@@ -35,6 +36,7 @@ export default function ProductForm({title, id, product}) {
       setProductForm({...productForm, description: editorState});
       setPreview(product.imageURL);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -52,6 +54,7 @@ export default function ProductForm({title, id, product}) {
     } else {
       setCompleted(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productForm]);
 
   const changeValue = (e) => {
@@ -61,17 +64,21 @@ export default function ProductForm({title, id, product}) {
 
   const changeValueFile = (e) => {
     const maxSize = 0.255 * 1024 * 1024;
-    const file = e.target.files[0];
-    if (file.size > maxSize) {
+    const file = e?.target?.files[0];
+    console.log({file, fileForm: productForm?.image});
+    if (file?.size > maxSize) {
       Swal.fire({
         icon: "error",
         title: "File Size",
         text: "Maximum file size 255kb!",
       });
-    } else {
+    } else if (file) {
       const url = URL.createObjectURL(file);
       setPreview(url);
       setProductForm({...productForm, [e.target.name]: file});
+    } else {
+      setPreview("");
+      setProductForm({...productForm, [e.target.name]: ""});
     }
   };
   const descriptionChange = (editorState) => {
@@ -155,6 +162,7 @@ export default function ProductForm({title, id, product}) {
               Name
             </label>
             <input
+              // ref={}
               id="name"
               name="name"
               type="text"
@@ -174,6 +182,7 @@ export default function ProductForm({title, id, product}) {
               Image
             </label>
             <input
+              ref={imageInputRef}
               id="image"
               name="image"
               type="file"
@@ -182,7 +191,9 @@ export default function ProductForm({title, id, product}) {
               className=" relative w-full px-3 py-2 border-2 border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:border-blue-900 "
               onChange={(e) => changeValueFile(e)}
             />
-            {preview && <img src={preview} className="w-48 h-48 mt-4" />}
+            {preview && (
+              <img src={preview} className="w-48 h-48 mt-4" alt="preview" />
+            )}
           </div>
 
           <div>
