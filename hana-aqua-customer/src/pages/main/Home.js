@@ -71,6 +71,7 @@ export default function HomePage() {
 
   useEffect(() => {
     scrolling();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stopScroll, unavailable]);
 
   useEffect(() => {
@@ -93,6 +94,7 @@ export default function HomePage() {
         else setLoading(false);
         setStopScroll(false);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category, query, page]);
 
   useEffect(() => {

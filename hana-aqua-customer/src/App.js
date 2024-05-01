@@ -2,7 +2,6 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Navigate,
 } from "react-router-dom";
 import HomePage from "./pages/main/Home";
 import ErrorNotFound from "./pages/errors/NotFound";
