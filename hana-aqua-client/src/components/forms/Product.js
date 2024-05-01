@@ -134,13 +134,13 @@ export default function ProductForm({title, id, product}) {
         });
         Toast.fire({
           icon: "success",
-          title: `${
-            id ? "Update Product " + id : "Create Product"
-          } Successfully`,
+          title: `Berhasil ${
+            id ? "mengedit produk " + id : "membuat produk"
+          }`,
         });
       }
     } catch (err) {
-      dispatch(setError("Error Create Product"));
+      dispatch(setError("Gagal membuat produk"));
     } finally {
       dispatch(setLoading(false));
     }
@@ -159,16 +159,15 @@ export default function ProductForm({title, id, product}) {
               htmlFor="name"
               className=" text-lg font-semibold text-blue-900"
             >
-              Name
+              Nama
             </label>
             <input
-              // ref={}
               id="name"
               name="name"
               type="text"
               required
               className="relative w-full px-3 py-2 border-2 border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:border-blue-900 "
-              placeholder="Name"
+              placeholder="Masukkan nama"
               defaultValue={productForm.name}
               onChange={(e) => changeValue(e)}
             />
@@ -179,7 +178,7 @@ export default function ProductForm({title, id, product}) {
               htmlFor="image"
               className=" text-lg font-semibold text-blue-900"
             >
-              Image
+              Gambar
             </label>
             <input
               ref={imageInputRef}
@@ -201,7 +200,7 @@ export default function ProductForm({title, id, product}) {
               htmlFor="description"
               className=" text-lg font-semibold text-blue-900"
             >
-              Description
+              Deskripsi
             </label>
             <Editor
               editorState={productForm.description}
@@ -223,32 +222,31 @@ export default function ProductForm({title, id, product}) {
               htmlFor="product-category"
               className=" text-lg font-semibold text-blue-900"
             >
-              Category
+              Kategori
             </label>
             <select
               id="product-category"
               name="CategoryId"
               required
               className=" relative w-full px-3 py-2 border-2 border-gray-300 text-gray-900 rounded-md focus:outline-none focus:border-blue-900 bg-white "
-              placeholder="Select Category"
               onChange={(e) => changeValue(e)}
             >
               {!product && (
                 <option disabled selected>
-                  Select category
+                  Pilih kategori
                 </option>
               )}
               <option
                 value={1}
                 selected={productForm.CategoryId === 1 ? true : false}
               >
-                Tanks
+                Aquarium
               </option>
               <option
                 value={2}
                 selected={productForm.CategoryId === 2 ? true : false}
               >
-                Ponds
+                Kolam
               </option>
             </select>
           </div>
@@ -270,7 +268,7 @@ export default function ProductForm({title, id, product}) {
                 type="text"
                 required
                 className=" relative w-full px-3 py-2 border-2 border-gray-300 placeholder-gray-500 text-gray-900 rounded-r-md focus:outline-none focus:border-blue-900 "
-                placeholder="100,000"
+                placeholder="Masukkan harga"
                 value={productForm.price}
                 onChange={(e) => changeValue(currencyMask(e))}
               />

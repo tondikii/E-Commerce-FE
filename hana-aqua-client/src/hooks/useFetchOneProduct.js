@@ -17,11 +17,12 @@ export default function useFetchOneProduct({id}) {
         dispatch(setProduct(data))
       })
       .catch((err) => {
-        dispatch(setError("Error Fetching Product"))
+        dispatch(setError("Error mengambil data produk"))
       })
       .finally((res) => {
         dispatch(setLoading(false))
       });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return  product ;
 }

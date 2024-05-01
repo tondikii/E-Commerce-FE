@@ -103,7 +103,7 @@ export default function RegisterPage() {
               htmlFor="fullName"
               className=" text-lg font-semibold text-white"
             >
-              Full Name
+              Nama Lengkap
             </label>
             <input
               id="fullName"
@@ -111,7 +111,7 @@ export default function RegisterPage() {
               type="text"
               required
               className="appearance-none rounded-none relative block w-full px-3 py-2 border-2 border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-              placeholder="Full Name"
+              placeholder="Masukkan nama lengkap"
               onChange={(e) => changeValue(e)}
             />
             {errors.fullName.length > 0 &&
@@ -127,7 +127,7 @@ export default function RegisterPage() {
               htmlFor="email-address"
               className=" text-lg font-semibold text-white"
             >
-              Email address
+              Email
             </label>
             <input
               id="email-address"
@@ -135,7 +135,7 @@ export default function RegisterPage() {
               type="email"
               required
               className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-              placeholder="Email address"
+              placeholder="Masukkan email"
               onChange={(e) => changeValue(e)}
             />
             {errors.email.length > 0 &&
@@ -159,7 +159,7 @@ export default function RegisterPage() {
               type="password"
               required
               className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-              placeholder="Password"
+              placeholder="Masukkan password"
               onChange={(e) => changeValue(e)}
             />
             {errors.password.length > 0 &&
@@ -175,7 +175,7 @@ export default function RegisterPage() {
               htmlFor="phoneNumber"
               className=" text-lg font-semibold text-white"
             >
-              Phone Number
+              Nomor Handphone
             </label>
             <input
               id="phoneNumber"
@@ -183,7 +183,7 @@ export default function RegisterPage() {
               type="text"
               required
               className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-              placeholder="Phone Number"
+              placeholder="Masukkan nomor handphone"
               onChange={(e) => changeValue(e)}
             />
             {errors.phoneNumber.length > 0 &&
@@ -204,11 +204,11 @@ export default function RegisterPage() {
         </button>
       </form>
       <div className="flex flex-row space-x-1 mt-2">
-        <p className="text-white">Already have an account?</p>
+        <p className="text-white">Sudah punya akun?</p>
         <Link to="/login" className="text-white underline underline-offset-2">
-          click here
+          klik di sini
         </Link>
-        <p className="text-white">to login</p>
+        <p className="text-white">untuk login.</p>
       </div>
     </div>
   );

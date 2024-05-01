@@ -23,7 +23,7 @@ export default function CreateProduct() {
       <Sidebar />
       <Layout>
         <ProductForm
-          title={`Edit Product Id ${id}`}
+          title={`Edit Produk Id ${id}`}
           id={id}
           product={product}
         />

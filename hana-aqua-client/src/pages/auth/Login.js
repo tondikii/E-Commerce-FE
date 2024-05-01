@@ -76,7 +76,7 @@ export default function LoginPage() {
               htmlFor="email-address"
               className=" text-lg font-semibold text-white"
             >
-              Email address
+              Email
             </label>
             <input
               id="email-address"
@@ -85,7 +85,7 @@ export default function LoginPage() {
               autoComplete="email"
               required
               className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-              placeholder="Email address"
+              placeholder="Masukkan email"
               onChange={(e) => changeValue(e)}
             />
             {errors.email && (
@@ -111,7 +111,7 @@ export default function LoginPage() {
               autoComplete="current-password"
               required
               className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-              placeholder="Password"
+              placeholder="Masukkan password"
               onChange={(e) => changeValue(e)}
             />
             {errors.password && (
@@ -133,14 +133,14 @@ export default function LoginPage() {
         </button>
       </form>
       <div className="flex flex-row space-x-1 mt-2">
-        <p className="text-white">Don't have an account?</p>
+        <p className="text-white">Tidak punya akun?</p>
         <Link
           to="/register"
           className="text-white underline underline-offset-2"
         >
-          click here
+          klik di sini
         </Link>
-        <p className="text-white">to register</p>
+        <p className="text-white">untuk mendaftar.</p>
       </div>
     </div>
   );

@@ -20,8 +20,8 @@ const  MenuButton = ({ id,  refetchData = () => {}}) => {
     try {
       const { isConfirmed } = await Swal.fire({
         icon: "question",
-        title: `Delete product `,
-        text: `Are you sure want to delete product id ${id}`,
+        title: `Hapus Produk `,
+        text: `Apakah kamu yakin ingin menghapus produk id ${id}`,
       });
       if (isConfirmed) {
         dispatch(setLoading(true));
@@ -43,12 +43,12 @@ const  MenuButton = ({ id,  refetchData = () => {}}) => {
           });
           Toast.fire({
             icon: "success",
-            title: `Product Id ${id} Deleted`,
+            title: `Berhasil menghapus produk id ${id}`,
           });
         }
       }
     } catch (err) {
-      dispatch(setError(`Error Delete Product id ${id}`));
+      dispatch(setError(`Gagal menghapus produk id ${id}`));
     } finally {
       dispatch(setLoading(false));
     }
@@ -77,7 +77,7 @@ const  MenuButton = ({ id,  refetchData = () => {}}) => {
         >
           Edit
         </MenuItem>
-        <MenuItem onClick={onDelete}>Delete</MenuItem>
+        <MenuItem onClick={onDelete}>Hapus</MenuItem>
       </Menu>
     </>
   );

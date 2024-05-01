@@ -27,7 +27,7 @@ const Navbar = () => {
 
   const navigation = [
     {
-      name: "Tanks",
+      name: "Aquarium",
       href: `/${
         query
           ? `${
@@ -48,7 +48,7 @@ const Navbar = () => {
       value: 1,
     },
     {
-      name: "Ponds",
+      name: "Kolam",
       href: `/${
         query
           ? `${
@@ -105,8 +105,8 @@ const Navbar = () => {
                 to="/"
                 className={
                   !category
-                    ? "bg-white text-blue-900  text-xs font-bold p-2 md:text-xl lg:text-2xl xl:text-3xl rounded-md font-logo"
-                    : "text-white text-xs font-bold p-2 md:text-xl lg:text-2xl xl:text-3xl font-logo"
+                    ? "bg-white text-blue-900  text-base font-bold p-2 md:text-2xl lg:text-3xl xl:text-4xl rounded-md font-logo"
+                    : "text-white text-base font-bold p-2 md:text-2xl lg:text-3xl xl:text-4xl font-logo"
                 }
                 onClick={(e) => onNavigate(e, "")}
               >

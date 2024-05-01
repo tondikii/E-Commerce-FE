@@ -25,6 +25,7 @@ export default function ProductDetail() {
       .finally((res) => {
         setLoading(false);
       });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loading || !product) return <Loading />;
@@ -45,11 +46,12 @@ export default function ProductDetail() {
       </Helmet>
       <img
         src={product?.imageURL}
-        className="w-80 h-80 rounded-md self-center "
+        className="w-80 h-80 rounded-md self-center"
+        alt="gambar produk"
       />
       <div className="flex flex-col space-y-1">
         <h3 className="text-xl text-gray-500 font-semibold">
-          Category: {product?.Category == 1 ? "Tanks" : "Ponds"}
+          Kategori: {product?.Category === 1 ? "Aquarium" : "Kolam"}
         </h3>
         <h1 className="text-2xl text-gray-900 font-bold text-center">
           {product?.name}
@@ -59,7 +61,7 @@ export default function ProductDetail() {
         )}`}</h2>
       </div>
       <div className="flex flex-col space-y-1">
-        <h2 className="text-xl text-gray-900 font-semibold">Description</h2>
+        <h2 className="text-xl text-gray-900 font-semibold">Deskripsi</h2>
         <div dangerouslySetInnerHTML={{__html: product?.description}} />
       </div>
       <a
@@ -69,7 +71,7 @@ export default function ProductDetail() {
         rel="noreferrer"
       >
         <button className="bg-green-700 flex flex-row w-full self-center px-4 py-2 rounded-md items-center justify-center space-x-2">
-          <img className="h-6 w-6" src={WhatsAppImage} />
+          <img className="h-6 w-6" src={WhatsAppImage} alt="logo whatsapp" />
           <p className="text-white text-md font-medium">Beli</p>
         </button>
       </a>

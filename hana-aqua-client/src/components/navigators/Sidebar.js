@@ -15,7 +15,7 @@ export default function Sidebar() {
     Swal.fire({
       icon: "question",
       title: "Logout",
-      text: "Are you sure want to logout?",
+      text: "Apakah kamu yakin ingin logout?",
       showConfirmButton: true,
       confirmButtonColor: "#3085d6",
       showDenyButton: true,
@@ -34,6 +34,7 @@ export default function Sidebar() {
           <img
             src="http://trimelive.com/wp-content/uploads/2020/12/gambar-Wa-1.png"
             className="w-12 h-12 rounded-full"
+            alt="profil"
           />
           <p className=" text-md text-white font-bold font-sans ml-4">
             {localStorage.fullName}
@@ -43,7 +44,7 @@ export default function Sidebar() {
           <Link to="/">
             <div className="flex flex-row items-center space-x-1 justify-start px-4 py-2">
               <UilStore color="white" size={32} />
-              <p className=" text-2xl text-white font-bold font-logo">
+              <p className=" text-4xl text-white font-bold font-logo">
                 Hana Aqua
               </p>
             </div>
@@ -56,13 +57,13 @@ export default function Sidebar() {
             <div className="flex flex-row items-center space-x-1 bg-white px-4 py-2 rounded-md justify-start">
               <ShoppingBagIcon className="h-7 w-7 text-blue-900 font-bold" />
               <p className=" text-xl text-blue-900 font-bold font-sans">
-                Product
+                Produk
               </p>
             </div>
           ) : (
             <div className="flex flex-row items-center space-x-1 bg-blue-900 px-4 py-2 rounded-md justify-start">
               <ShoppingBagIcon className="h-7 w-7 text-white font-bold" />
-              <p className=" text-xl text-white font-bold font-sans">Product</p>
+              <p className=" text-xl text-white font-bold font-sans">Produk</p>
             </div>
           )}
         </Link>

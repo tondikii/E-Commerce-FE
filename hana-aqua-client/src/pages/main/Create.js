@@ -7,7 +7,7 @@ export default function CreateProduct() {
     <div className="flex flex-row space-x-4">
       <Sidebar />
       <Layout>
-        <ProductForm title={"Create New Product"} />
+        <ProductForm title="Buat Produk Baru" />
       </Layout>
     </div>
   );
